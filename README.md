@@ -5,12 +5,9 @@
 ## Introduction
 
 This library eases working with known Azure IP networks in dotnet. `AzureCloudServiceTag` provides the IP ranges for the entire
-cloud and is also broken out by region within that cloud.
-You cannot create your own service tag nor can you specify which IP addresses are included within a tag. Microsoft manages the address prefixes encompassed by the service tag, and automatically updates the service tag and their addresses as they change.
+cloud and is also broken out by region within that cloud. You cannot create your own service tag nor can you specify which IP addresses are included within a tag. Microsoft manages the address prefixes encompassed by the service tag, and automatically updates the service tag and their addresses as they change.
 
-Service tags are stored in a JSON file which contains the IP address ranges for Public Azure as a whole, each Azure region within Public,
-and ranges for several Azure services such as AD, EventHub, KeyVault, Storage, SQL, and AzureTrafficManager in Public. The JSON file is downloaded from Microsoft's Website every so often from
-[this link](https://www.microsoft.com/en-us/download/details.aspx?id=56519).
+Service tags are stored in a JSON file which contains the IP address ranges for Public Azure as a whole, each Azure region within Public, and ranges for several Azure services such as AD, EventHub, KeyVault, Storage, SQL, and AzureTrafficManager in Public. The JSON file is downloaded from Microsoft's Website every so often from [this link](https://www.microsoft.com/en-us/download/details.aspx?id=56519).
 
 The library offers capabilities such as:
 
@@ -51,14 +48,17 @@ From within Visual Studio:
 
 ```csharp
 var ranges = await AzureIPsHelper.GetAzureCloudIpsAsync();
-foreach (var range in ranges) {
+foreach (var range in ranges)
+{
     Console.WriteLine($"Cloud: {range.Cloud}");
-    foreach (var tag in range.Values) {
+    foreach (var tag in range.Values)
+    {
         Console.WriteLine($"\tName: {tag.Name}");
         Console.WriteLine($"\tRegion: {tag.Properties.Region}");
         Console.WriteLine($"\tPlatform: {tag.Properties.Platform}");
         Console.WriteLine("\tPrefixes:");
-        foreach(var prefix in tag.Properties.AddressPrefixes) {
+        foreach(var prefix in tag.Properties.AddressPrefixes)
+        {
             Console.WriteLine($"\t\t{prefix}");
         }
     }
@@ -69,7 +69,8 @@ foreach (var range in ranges) {
 
 ```csharp
 var networks = await AzureIPsHelper.GetAzureIpNetworksAsync();
-foreach (var net in networks) {
+foreach (var net in networks)
+{
     Console.WriteLine($"{net} ({range.FirstUsable} to {net.LastUsable})");
 }
 ```
