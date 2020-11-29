@@ -45,6 +45,12 @@ stages:
       inputs:
         restoreSolution: '$(solution)'
 
+    - task: UseDotNet@1
+      displayName: 'Ensure .NET 5 SDK'
+      inputs:
+        packageType: sdk
+        version: 5.x
+
     - task: DotNetCoreCLI@2
       displayName: 'dotnet build'
       inputs:
