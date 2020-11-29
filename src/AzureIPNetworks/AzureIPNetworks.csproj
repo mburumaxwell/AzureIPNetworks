@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\ServiceTags_Public_20201012.json" />
+    <EmbeddedResource Include="Resources\ServiceTags_Public_20201123.json" />
   </ItemGroup>
 
   <ItemGroup>
