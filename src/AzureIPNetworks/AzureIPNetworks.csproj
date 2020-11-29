@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Description>Extensions for accessing Azure IPs</Description>
+    <Description>Convenient functions for working with Azure IP networks</Description>
   </PropertyGroup>
 
   <ItemGroup>
