@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>Convenient functions for working with Azure IP networks</Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Deterministic>true</Deterministic>
+    <!--<IsPackable>true</IsPackable>-->
   </PropertyGroup>
 
   <ItemGroup>
