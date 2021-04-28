@@ -14,7 +14,7 @@ The library offers capabilities such as:
 - Listing IP addresses or IP networks used by the whole of Azure or filtered to a single service tag.
 - Checking if a given IP address or IP network belongs to Azure
 
-The current version of IPs is dated 20200203 (3rd February 2020). See [source file](./src/AzureIPNetworks/Resources/ServiceTags_Public_20210111.json)
+The current version of IPs is dated 20200203 (3rd February 2020). See [source file](./src/AzureIPNetworks/Resources/ServiceTags_Public_20210426.json)
 
 ## Installation
 
