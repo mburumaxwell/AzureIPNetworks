@@ -1,4 +1,6 @@
-﻿namespace AzureIPNetworks
+﻿using System.Collections.Generic;
+
+namespace AzureIPNetworks
 {
     /// <summary>
     /// Representation of the Azure supplied document containing all the IPs.
@@ -14,6 +16,6 @@
         /// <summary>
         /// The values for this cloud by service tag
         /// </summary>
-        public AzureCloudServiceTag[]? Values { get; set; }
+        public ICollection<AzureCloudServiceTag>? Values { get; set; }
     }
 }

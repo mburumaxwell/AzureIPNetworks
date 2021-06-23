@@ -1,4 +1,6 @@
-﻿namespace AzureIPNetworks
+﻿using System.Collections.Generic;
+
+namespace AzureIPNetworks
 {
     /// <summary>
     /// The properties of a service tag
@@ -23,6 +25,6 @@
         /// <summary>
         /// The network subnet specifying the IPs in range
         /// </summary>
-        public string[]? AddressPrefixes { get; set; }
+        public ICollection<string>? AddressPrefixes { get; set; }
     }
 }
