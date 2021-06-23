@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureIPNetworks", "src\AzureIPNetworks\AzureIPNetworks.csproj", "{0C638594-10E2-42AF-9A29-B18E27B399B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureIPNetworks.Tests", "src\AzureIPNetworks.Tests\AzureIPNetworks.Tests.csproj", "{70AC673B-F787-4765-BB3B-40E25E26F10E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureIPNetworks.Tests", "tests\AzureIPNetworks.Tests\AzureIPNetworks.Tests.csproj", "{70AC673B-F787-4765-BB3B-40E25E26F10E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
