@@ -8,16 +8,16 @@
         /// <summary>
         /// The name of the service tag
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// The identifier for the service
         /// </summary>
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         /// <summary>
         /// Properties for this service tag
         /// </summary>
-        public AzureCloudServiceTagProperties Properties { get; set; }
+        public AzureCloudServiceTagProperties? Properties { get; set; }
     }
 }

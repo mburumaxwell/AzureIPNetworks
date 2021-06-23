@@ -1,0 +1,9 @@
+<Project>
+  <!-- There is nothing else to import. -->
+
+  <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

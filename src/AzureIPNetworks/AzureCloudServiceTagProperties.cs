@@ -8,21 +8,21 @@
         /// <summary>
         /// The name of the Azure region
         /// </summary>
-        public string Region { get; set; }
+        public string? Region { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Platform { get; set; }
+        public string? Platform { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string SystemService { get; set; }
+        public string? SystemService { get; set; }
 
         /// <summary>
         /// The network subnet specifying the IPs in range
         /// </summary>
-        public string[] AddressPrefixes { get; set; }
+        public string[]? AddressPrefixes { get; set; }
     }
 }

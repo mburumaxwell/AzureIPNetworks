@@ -9,11 +9,11 @@
         /// <summary>
         /// The name of the cloud the data belongs to
         /// </summary>
-        public string Cloud { get; set; }
+        public string? Cloud { get; set; }
 
         /// <summary>
         /// The values for this cloud by service tag
         /// </summary>
-        public AzureCloudServiceTag[] Values { get; set; }
+        public AzureCloudServiceTag[]? Values { get; set; }
     }
 }

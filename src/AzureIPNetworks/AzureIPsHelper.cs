@@ -22,12 +22,10 @@ namespace AzureIPNetworks
         {
             // read the JSON file from embedded resource
             var resourceName = string.Join(".", typeof(AzureCloudIpRanges).Namespace, "Resources", "ServiceTags_Public_20210621.json");
-            using (var stream = typeof(AzureCloudIpRanges).Assembly.GetManifestResourceStream(resourceName))
-            {
-                // deserialize the JSON file
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                return await JsonSerializer.DeserializeAsync<AzureCloudIpRanges>(stream, options, cancellationToken);
-            }
+            using var stream = typeof(AzureCloudIpRanges).Assembly.GetManifestResourceStream(resourceName);
+            // deserialize the JSON file
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            return (await JsonSerializer.DeserializeAsync<AzureCloudIpRanges>(stream, options, cancellationToken))!;
         }
 
         /// <summary>
