@@ -40,22 +40,22 @@ namespace AzureIPNetworks
             var ranges = await GetAzureCloudIpsAsync(cancellationToken);
             var prefixes = ranges?.Values?.SelectMany(v => v.Properties?.AddressPrefixes)
                                           .Where(p => !string.IsNullOrWhiteSpace(p));
-            return prefixes.Select(r => IPNetwork.Parse(r));
+            return prefixes?.Select(r => IPNetwork.Parse(r)) ?? System.Array.Empty<IPNetwork>();
         }
 
         /// <summary>
         /// Checks if the supplied IP address is an Azure IP
         /// </summary>
-        /// <param name="ipAddress">the IP address to check against</param>
+        /// <param name="address">The IP address to check against</param>
         /// <param name="cancellationToken">A token that may be used to cancel the operation.</param>
         /// <returns></returns>
-        public static async Task<bool> IsAzureIpAsync(IPAddress ipAddress, CancellationToken cancellationToken = default)
-            => (await GetAzureIpNetworksAsync(cancellationToken)).Contains(ipAddress);
+        public static async Task<bool> IsAzureIpAsync(IPAddress address, CancellationToken cancellationToken = default)
+            => (await GetAzureIpNetworksAsync(cancellationToken)).Contains(address);
 
         /// <summary>
         /// Checks if the supplied IP network is an Azure IP
         /// </summary>
-        /// <param name="network">the network check against</param>
+        /// <param name="network">The network check against</param>
         /// <param name="cancellationToken">A token that may be used to cancel the operation.</param>
         /// <returns></returns>
         public static async Task<bool> IsAzureIpAsync(IPNetwork network, CancellationToken cancellationToken = default)
