@@ -21,8 +21,9 @@ namespace AzureIPNetworks
         public static async Task<AzureCloudIpRanges> GetAzureCloudIpsAsync(CancellationToken cancellationToken = default)
         {
             // read the JSON file from embedded resource
-            var resourceName = string.Join(".", typeof(AzureCloudIpRanges).Namespace, "Resources", "ServiceTags_Public_20210621.json");
-            using var stream = typeof(AzureCloudIpRanges).Assembly.GetManifestResourceStream(resourceName);
+            var name = string.Join(".", typeof(AzureCloudIpRanges).Namespace, "Resources", "ServiceTags_Public_20210621.json");
+            using var stream = typeof(AzureCloudIpRanges).Assembly.GetManifestResourceStream(name);
+
             // deserialize the JSON file
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             return (await JsonSerializer.DeserializeAsync<AzureCloudIpRanges>(stream, options, cancellationToken))!;
@@ -36,8 +37,9 @@ namespace AzureIPNetworks
         /// <returns></returns>
         public static async Task<IEnumerable<IPNetwork>> GetAzureIpNetworksAsync(CancellationToken cancellationToken = default)
         {
-            var ipRanges = await GetAzureCloudIpsAsync(cancellationToken);
-            var prefixes = ipRanges?.Values.SelectMany(v => v.Properties?.AddressPrefixes);
+            var ranges = await GetAzureCloudIpsAsync(cancellationToken);
+            var prefixes = ranges?.Values?.SelectMany(v => v.Properties?.AddressPrefixes)
+                                          .Where(p => !string.IsNullOrWhiteSpace(p));
             return prefixes.Select(r => IPNetwork.Parse(r));
         }
 
