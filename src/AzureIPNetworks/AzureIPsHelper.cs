@@ -21,7 +21,7 @@ namespace AzureIPNetworks
         public static async Task<AzureCloudIpRanges> GetAzureCloudIpsAsync(CancellationToken cancellationToken = default)
         {
             // read the JSON file from embedded resource
-            var name = string.Join(".", typeof(AzureCloudIpRanges).Namespace, "Resources", "ServiceTags_Public_20210621.json");
+            var name = string.Join(".", typeof(AzureCloudIpRanges).Namespace, "Resources", "ServiceTags_Public_20210906.json");
             using var stream = typeof(AzureCloudIpRanges).Assembly.GetManifestResourceStream(name);
 
             // deserialize the JSON file
