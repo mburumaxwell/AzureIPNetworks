@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IPNetwork2" Version="2.5.353" />
+    <PackageReference Include="IPNetwork2" Version="2.5.362" />
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
   </ItemGroup>
 
