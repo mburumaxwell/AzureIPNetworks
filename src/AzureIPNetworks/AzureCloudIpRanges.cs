@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AzureIPNetworks
+﻿namespace AzureIPNetworks
 {
     /// <summary>
     /// Representation of the Azure supplied document containing all the IPs.

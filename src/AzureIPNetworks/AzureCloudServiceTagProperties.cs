@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AzureIPNetworks
+﻿namespace AzureIPNetworks
 {
     /// <summary>
     /// The properties of a service tag
