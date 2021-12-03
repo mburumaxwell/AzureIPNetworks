@@ -19,6 +19,10 @@ public static class AzureIPsHelper
         // read the JSON file from embedded resource
         var name = string.Join(".", typeof(AzureCloudIpRanges).Namespace, "Resources", "ServiceTags_Public_20210906.json");
         using var stream = typeof(AzureCloudIpRanges).Assembly.GetManifestResourceStream(name);
+        if (stream is null)
+        {
+            throw new InvalidOperationException($"Stream '{name}' could not be found. Raise an issue on GitHub.");
+        }
 
         // deserialize the JSON file
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
@@ -34,7 +38,7 @@ public static class AzureIPsHelper
     public static async Task<IEnumerable<IPNetwork>> GetAzureIpNetworksAsync(CancellationToken cancellationToken = default)
     {
         var ranges = await GetAzureCloudIpsAsync(cancellationToken);
-        var prefixes = ranges?.Values?.SelectMany(v => v.Properties?.AddressPrefixes)
+        var prefixes = ranges?.Values?.SelectMany(v => v.Properties?.AddressPrefixes ?? Array.Empty<string>())
                                       .Where(p => !string.IsNullOrWhiteSpace(p));
         return prefixes?.Select(r => IPNetwork.Parse(r)) ?? System.Array.Empty<IPNetwork>();
     }
