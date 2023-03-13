@@ -3,17 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "generators", "generators", "{30AE1DD0-446D-45F9-A6C7-AD673CA2B83B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureIPNetworksGenerator", "AzureIPNetworksGenerator\AzureIPNetworksGenerator.csproj", "{C9CDEA03-95FC-4417-A56C-7566892917D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureIPNetworksGenerator", "generators\AzureIPNetworksGenerator\AzureIPNetworksGenerator.csproj", "{C9CDEA03-95FC-4417-A56C-7566892917D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureIPNetworks", "AzureIPNetworks\AzureIPNetworks.csproj", "{0C638594-10E2-42AF-9A29-B18E27B399B5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{36CD381A-6F7E-48C7-A398-7F5A7B4CD0F8}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureIPNetworks", "src\AzureIPNetworks\AzureIPNetworks.csproj", "{0C638594-10E2-42AF-9A29-B18E27B399B5}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9C0D8787-3B4A-4E0D-822C-0464D54B8128}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureIPNetworks.Tests", "tests\AzureIPNetworks.Tests\AzureIPNetworks.Tests.csproj", "{70AC673B-F787-4765-BB3B-40E25E26F10E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureIPNetworks.Tests", "AzureIPNetworks.Tests\AzureIPNetworks.Tests.csproj", "{70AC673B-F787-4765-BB3B-40E25E26F10E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,11 +30,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{C9CDEA03-95FC-4417-A56C-7566892917D6} = {30AE1DD0-446D-45F9-A6C7-AD673CA2B83B}
-		{0C638594-10E2-42AF-9A29-B18E27B399B5} = {36CD381A-6F7E-48C7-A398-7F5A7B4CD0F8}
-		{70AC673B-F787-4765-BB3B-40E25E26F10E} = {9C0D8787-3B4A-4E0D-822C-0464D54B8128}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74D740D4-7214-4921-B47C-8E1CBD358229}

@@ -340,4 +340,4 @@ ASALocalRun/
 healthchecksdb
 
 # Generated files
-src/*/Generated
+Generated

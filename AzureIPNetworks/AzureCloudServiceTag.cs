@@ -50,10 +50,12 @@ public sealed class AzureCloudServiceTag
     /// <param name="service">
     /// The name of the service where to check.
     /// When not provided (<see langword="null"/>), IPs from all services are checked.
+    /// For the list of known services see <see cref="ServiceNames"/>.
     /// </param>
     /// <param name="region">
     /// The name of the region where to check.
     /// When not provided (<see langword="null"/>), IPs from all regions are checked.
+    /// For the list of known regions see <see cref="Regions"/>.
     /// </param>
     public static bool IsPublicCloudIP(IPAddress address, string? service = null, string? region = null)
     {
@@ -78,10 +80,12 @@ public sealed class AzureCloudServiceTag
     /// <param name="service">
     /// The name of the service where to check.
     /// When not provided (<see langword="null"/>), networks from all services are checked.
+    /// For the list of known services see <see cref="ServiceNames"/>.
     /// </param>
     /// <param name="region">
     /// The name of the region where to check.
     /// When not provided (<see langword="null"/>), networks from all regions are checked.
+    /// For the list of known regions see <see cref="Regions"/>.
     /// </param>
     public static bool IsPublicCloudIP(IPNetwork network, string? service = null, string? region = null)
     {
