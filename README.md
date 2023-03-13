@@ -7,14 +7,19 @@
 This library eases working with known Azure IP networks in dotnet. `AzureCloudServiceTag` provides the IP ranges for the entire
 cloud and is also broken out by region within that cloud. You cannot create your own service tag nor can you specify which IP addresses are included within a tag. Microsoft manages the address prefixes encompassed by the service tag, and automatically updates the service tag and their addresses as they change.
 
-Service tags are stored in a JSON file which contains the IP address ranges for Public Azure as a whole, each Azure region within Public, and ranges for several Azure services such as AD, EventHub, KeyVault, Storage, SQL, and AzureTrafficManager in Public. The JSON file is downloaded from Microsoft's Website every so often from [this link](https://www.microsoft.com/en-us/download/details.aspx?id=56519).
+Service tags are stored in a JSON file which contains the IP address ranges for Public Azure as a whole, each Azure region within Public, and ranges for several Azure services such as AD, EventHub, KeyVault, Storage, SQL, and AzureTrafficManager in Public. The JSON file is downloaded from Microsoft's Website every so often from:
+
+- https://www.microsoft.com/en-us/download/details.aspx?id=56519
+- https://www.microsoft.com/en-us/download/details.aspx?id=57062
+- https://www.microsoft.com/en-us/download/details.aspx?id=57063
+- https://www.microsoft.com/en-us/download/details.aspx?id=57064
 
 The library offers capabilities such as:
 
 - Listing IP addresses or IP networks used by the whole of Azure or filtered to a single service tag.
 - Checking if a given IP address or IP network belongs to Azure
 
-The current version of IPs is dated 20200203 (3rd February 2020). See [source file](./src/AzureIPNetworks/Resources/ServiceTags_Public_20211129.json)
+The current version of the files can be found at [files.json](./src/AzureIPNetworks/Resources/files.json)
 
 ## Installation
 
@@ -44,38 +49,17 @@ From within Visual Studio:
 4. Click on the *Browse* tab and search for "AzureIPNetworks".
 5. Click on the `AzureIPNetworks` package, select the appropriate version in the right-tab and click *Install*.
 
-## Example 1 - Get all IPs Raw
+## Example 1 - Get all IP Networks
 
 ```csharp
-var ranges = await AzureIPsHelper.GetAzureCloudIpsAsync();
-foreach (var range in ranges)
-{
-    Console.WriteLine($"Cloud: {range.Cloud}");
-    foreach (var tag in range.Values)
-    {
-        Console.WriteLine($"\tName: {tag.Name}");
-        Console.WriteLine($"\tRegion: {tag.Properties.Region}");
-        Console.WriteLine($"\tPlatform: {tag.Properties.Platform}");
-        Console.WriteLine("\tPrefixes:");
-        foreach(var prefix in tag.Properties.AddressPrefixes)
-        {
-            Console.WriteLine($"\t\t{prefix}");
-        }
-    }
-}
-```
-
-## Example 2 - Get all IP Networks
-
-```csharp
-var networks = await AzureIPsHelper.GetAzureIpNetworksAsync();
+var networks = await AzureIPsHelper.GetNetworksAsync(AzureCloud.Public);
 foreach (var net in networks)
 {
     Console.WriteLine($"{net} ({range.FirstUsable} to {net.LastUsable})");
 }
 ```
 
-## Example 3 - Check if an IP is used by Azure
+## Example 2 - Check if an IP is used by Azure
 
 ```csharp
 var ip = "30.0.0.20";

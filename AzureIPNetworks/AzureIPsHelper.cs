@@ -55,7 +55,7 @@ public static class AzureIPsHelper
     /// </param>
     /// <param name="cancellationToken">A token that may be used to cancel the operation.</param>
     /// <returns></returns>
-    public static async ValueTask<IEnumerable<IPNetwork>> GetNetworksAsync(AzureCloud cloud, string? service = null, string? region = null, CancellationToken cancellationToken = default)
+    public static async ValueTask<IEnumerable<IPNetwork>> GetNetworksAsync(AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
     {
         IEnumerable<ServiceTag> tags = cloud switch
         {
