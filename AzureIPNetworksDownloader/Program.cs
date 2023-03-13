@@ -19,7 +19,7 @@ var fileIds = new Dictionary<string, string>
 };
 
 var fileUriParserRegex = new Regex(@"(https:\/\/download.microsoft.com\/download\/.*?\/ServiceTags_[A-z]+_[0-9]+\.json)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-var targetDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../AzureIPNetworksGenerator/Resources"));
+var targetDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../AzureIPNetworks/Resources"));
 var downloadedFiles = new Dictionary<string, string>();
 
 foreach (var (cloudName, fileId) in fileIds)
