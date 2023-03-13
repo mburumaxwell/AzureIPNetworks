@@ -29,8 +29,11 @@ jobs:
     - name: Run
       run: dotnet run --project $GITHUB_WORKSPACE/AzureIPNetworksDownloader/AzureIPNetworksDownloader.csproj
 
-    - uses: peter-evans/create-pull-request@v4
+    - name: Create PR if necessary
+      uses: peter-evans/create-pull-request@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: 'Update files for service tags ($UPDATE_DATE)'
-        title: 'Update files for service tags $(UPDATE_DATE)'
+        commit-message: 'Update files for service tags ${{env.UPDATE_DATE}}'
+        title: 'Update files for service tags ${{env.UPDATE_DATE}}'
+        signoff: true
+        branch: update-service-tags/${{env.UPDATE_DATE}}
