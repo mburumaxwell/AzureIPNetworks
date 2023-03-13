@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureIPNetworks", "AzureIPN
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureIPNetworks.Tests", "AzureIPNetworks.Tests\AzureIPNetworks.Tests.csproj", "{70AC673B-F787-4765-BB3B-40E25E26F10E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureIPNetworksDownloader", "AzureIPNetworksDownloader\AzureIPNetworksDownloader.csproj", "{31AD7FFA-8E74-498A-81A7-F04E6947AD2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{70AC673B-F787-4765-BB3B-40E25E26F10E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70AC673B-F787-4765-BB3B-40E25E26F10E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70AC673B-F787-4765-BB3B-40E25E26F10E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31AD7FFA-8E74-498A-81A7-F04E6947AD2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31AD7FFA-8E74-498A-81A7-F04E6947AD2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31AD7FFA-8E74-498A-81A7-F04E6947AD2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31AD7FFA-8E74-498A-81A7-F04E6947AD2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
