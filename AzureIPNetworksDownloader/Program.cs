@@ -13,6 +13,9 @@ var client = app.Services.GetRequiredService<IHttpClientFactory>().CreateClient(
 var fileIds = new Dictionary<string, string>
 {
     ["Public"] = "56519",
+    ["China"] = "57062",
+    ["AzureGovernment"] = "57063",
+    ["AzureGermany"] = "57064",
 };
 
 var fileUriParserRegex = new Regex(@"(https:\/\/download.microsoft.com\/download\/.*?\/ServiceTags_[A-z]+_[0-9]+\.json)", RegexOptions.IgnoreCase | RegexOptions.Compiled);

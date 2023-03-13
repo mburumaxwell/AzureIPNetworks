@@ -96,11 +96,19 @@ public class IpNetworksGenerator : IIncrementalGenerator
 
     static void GeneratePartialClass(SourceProductionContext context, ClassToGenerate classToGenerate)
     {
-        // Parse the file
-        var resourceName = string.Join(".", typeof(IpNetworksGenerator).Namespace, "Resources", "Public.json");
-        var stream = typeof(IpNetworksGenerator).Assembly.GetManifestResourceStream(resourceName)!;
-        var json = new StreamReader(stream).ReadToEnd();
-        var ranges = Newtonsoft.Json.JsonConvert.DeserializeObject<RangesImpl>(json)!;
+        static RangesImpl ParseFile(string cloud)
+        {
+            // Parse the file
+            var resourceName = string.Join(".", typeof(IpNetworksGenerator).Namespace, "Resources", $"{cloud}.json");
+            var stream = typeof(IpNetworksGenerator).Assembly.GetManifestResourceStream(resourceName)!;
+            var json = new StreamReader(stream).ReadToEnd();
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<RangesImpl>(json)!;
+        }
+
+        var @public = ParseFile("Public");
+        var china = ParseFile("China");
+        var government = ParseFile("AzureGovernment");
+        var germany = ParseFile("AzureGermany");
 
         var sb = new StringBuilder();
         using var writer = new IndentedTextWriter(new StringWriter(sb));
@@ -121,35 +129,21 @@ public class IpNetworksGenerator : IIncrementalGenerator
         writer.WriteLine($"{classToGenerate.GetModifer()} partial class {classToGenerate.Name}");
         writer.WriteLine("{");
 
-        writer.Indent++;
-        writer.WriteLine($"// The ServiceTags ChangeNumber: {ranges.changeNumber}");
-        writer.WriteLine($"internal static readonly AzureCloudServiceTag[] {ranges.cloud}Cloud = new AzureCloudServiceTag[] {{");
-        writer.Indent++;
-        foreach (var impl in ranges.values)
-        {
-            var region = impl.properties.region;
-            region = string.IsNullOrWhiteSpace(region) ? "null" : $"\"{region}\"";
-            var systemService = impl.properties.systemService;
-            systemService = string.IsNullOrWhiteSpace(systemService) ? "null" : $"\"{systemService}\"";
-
-            writer.Write($"new({region}, \"{impl.properties.platform}\", {systemService}, new IPNetwork[] {{");
-            writer.Indent++;
-            foreach (var pr in impl.properties.addressPrefixes)
-            {
-                writer.WriteLine($"IPNetwork.Parse(\"{pr}\"),");
-            }
-            writer.Indent--;
-            writer.WriteLine("}),");
-        }
-        writer.Indent--;
-        writer.WriteLine("};");
-        writer.Indent--;
+        WriteForCloud(writer, @public);
+        writer.WriteLine();
+        WriteForCloud(writer, china);
+        writer.WriteLine();
+        WriteForCloud(writer, government);
+        writer.WriteLine();
+        WriteForCloud(writer, germany);
+        writer.WriteLine();
 
         // system services
-        var systemServices = ranges.values.Select(v => v.properties.systemService)
-                                          .Where(s => !string.IsNullOrWhiteSpace(s))
-                                          .Distinct(StringComparer.OrdinalIgnoreCase)
-                                          .ToList();
+        var combined = new[] { @public, china, government, germany, }.SelectMany(t => t.values);
+        var systemServices = combined.Select(v => v.properties.systemService)
+                                     .Where(s => !string.IsNullOrWhiteSpace(s))
+                                     .Distinct(StringComparer.OrdinalIgnoreCase)
+                                     .ToList();
         writer.WriteLine();
         writer.Indent++;
         writer.WriteLine("// The system services");
@@ -161,10 +155,10 @@ public class IpNetworksGenerator : IIncrementalGenerator
         writer.Indent--;
 
         // regions
-        var regions = ranges.values.Select(v => v.properties.region)
-                                   .Where(s => !string.IsNullOrWhiteSpace(s))
-                                   .Distinct(StringComparer.OrdinalIgnoreCase)
-                                   .ToList();
+        var regions = combined.Select(v => v.properties.region)
+                              .Where(s => !string.IsNullOrWhiteSpace(s))
+                              .Distinct(StringComparer.OrdinalIgnoreCase)
+                              .ToList();
         writer.WriteLine();
         writer.Indent++;
         writer.WriteLine("// The system services");
@@ -182,6 +176,33 @@ public class IpNetworksGenerator : IIncrementalGenerator
         writer.Flush();
 
         context.AddSource(classToGenerate.Name + ".g.cs", SourceText.From(sb.ToString(), Encoding.UTF8));
+    }
+
+    static void WriteForCloud(IndentedTextWriter writer, RangesImpl ranges)
+    {
+        writer.Indent++;
+        writer.WriteLine($"// The ServiceTags ChangeNumber: {ranges.changeNumber}");
+        writer.WriteLine($"internal static readonly AzureCloudServiceTag[] {ranges.cloud}Cloud = new AzureCloudServiceTag[] {{");
+        writer.Indent++;
+        foreach (var impl in ranges.values)
+        {
+            var region = impl.properties.region;
+            region = string.IsNullOrWhiteSpace(region) ? "null" : $"\"{region}\"";
+            var systemService = impl.properties.systemService;
+            systemService = string.IsNullOrWhiteSpace(systemService) ? "null" : $"\"{systemService}\"";
+
+            writer.WriteLine($"new({region}, \"{impl.properties.platform}\", {systemService}, new IPNetwork[] {{");
+            writer.Indent++;
+            foreach (var pr in impl.properties.addressPrefixes)
+            {
+                writer.WriteLine($"IPNetwork.Parse(\"{pr}\"),");
+            }
+            writer.Indent--;
+            writer.WriteLine("}),");
+        }
+        writer.Indent--;
+        writer.WriteLine("};");
+        writer.Indent--;
     }
 
     static List<ClassToGenerate> GetTypesToGenerate(Compilation compilation, IEnumerable<ClassDeclarationSyntax> classes, CancellationToken ct)
