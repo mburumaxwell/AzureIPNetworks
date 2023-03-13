@@ -1,4 +1,4 @@
-name: Update file
+name: Update ServiceTag files
 
 on:
   workflow_dispatch:
@@ -13,6 +13,9 @@ jobs:
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
       with:
@@ -24,7 +27,7 @@ jobs:
         dotnet build $GITHUB_WORKSPACE/AzureIPNetworksDownloader/AzureIPNetworksDownloader.csproj
 
     - name: Run
-      run: dotnet run $GITHUB_WORKSPACE/AzureIPNetworksDownloader/AzureIPNetworksDownloader.csproj
+      run: dotnet run --project $GITHUB_WORKSPACE/AzureIPNetworksDownloader/AzureIPNetworksDownloader.csproj
 
     - uses: peter-evans/create-pull-request@v4
       with:
