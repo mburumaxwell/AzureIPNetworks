@@ -8,7 +8,7 @@ using System.Text;
 namespace AzureIPNetworksGenerator;
 
 [Generator]
-public class IpNetworksGenerator : IIncrementalGenerator
+public class NetworksGenerator : IIncrementalGenerator
 {
     /// <inheritdoc/>
     public void Initialize(IncrementalGeneratorInitializationContext context)
@@ -99,8 +99,8 @@ public class IpNetworksGenerator : IIncrementalGenerator
         static RangesImpl ParseFile(string cloud)
         {
             // Parse the file
-            var resourceName = string.Join(".", typeof(IpNetworksGenerator).Namespace, "Resources", $"{cloud}.json");
-            var stream = typeof(IpNetworksGenerator).Assembly.GetManifestResourceStream(resourceName)!;
+            var resourceName = string.Join(".", typeof(NetworksGenerator).Namespace, "Resources", $"{cloud}.json");
+            var stream = typeof(NetworksGenerator).Assembly.GetManifestResourceStream(resourceName)!;
             var json = new StreamReader(stream).ReadToEnd();
             return Newtonsoft.Json.JsonConvert.DeserializeObject<RangesImpl>(json)!;
         }
