@@ -97,7 +97,7 @@ public class IpNetworksGenerator : IIncrementalGenerator
     static void GeneratePartialClass(SourceProductionContext context, ClassToGenerate classToGenerate)
     {
         // Parse the file
-        var resourceName = string.Join(".", typeof(IpNetworksGenerator).Namespace, "Resources", "ServiceTags_Public_20211129.json");
+        var resourceName = string.Join(".", typeof(IpNetworksGenerator).Namespace, "Resources", "Public.json");
         var stream = typeof(IpNetworksGenerator).Assembly.GetManifestResourceStream(resourceName)!;
         var json = new StreamReader(stream).ReadToEnd();
         var ranges = Newtonsoft.Json.JsonConvert.DeserializeObject<RangesImpl>(json)!;
