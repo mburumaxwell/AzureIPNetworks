@@ -1,24 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net5.0;net6.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Description>Convenient functions for working with Azure IP networks</Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Deterministic>true</Deterministic>
     <!--<IsPackable>true</IsPackable>-->
   </PropertyGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\ServiceTags_Public_20211129.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="IPNetwork2" Version="2.6.508" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Text.Json" Version="7.0.0" />
-  </ItemGroup>
 
   <PropertyGroup>
     <!--  Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
@@ -35,11 +23,33 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <!-- Persist the source generator (and other) files to disk -->
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <!-- 👇 The "base" path for the source generators -->
+    <GeneratedFolder>Generated</GeneratedFolder>
+    <!-- 👇 Write the output for each target framework to a different sub-folder -->
+    <CompilerGeneratedFilesOutputPath>$(GeneratedFolder)\$(TargetFramework)</CompilerGeneratedFilesOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 👇 Exclude everything in the base folder -->
+    <Compile Remove="$(GeneratedFolder)/**/*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IPNetwork2" Version="2.6.556" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\generators\AzureIPNetworksGenerator\AzureIPNetworksGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+  <PropertyGroup>
     <VersionPrefix Condition="'$(GITVERSION_NUGETVERSION)' != ''">$(GITVERSION_NUGETVERSION)</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>

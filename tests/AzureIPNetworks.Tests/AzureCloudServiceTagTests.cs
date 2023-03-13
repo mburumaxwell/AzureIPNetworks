@@ -3,19 +3,12 @@ using Xunit;
 
 namespace AzureIPNetworks.Tests;
 
-public class AzureIPsHelperTests
+public class AzureCloudServiceTagTests
 {
     [Fact]
-    public async Task GetAzureCloudIpsAsync_Works()
+    public void GetPublicCloudNetworks_Works()
     {
-        var ranges = await AzureIPsHelper.GetAzureCloudIpsAsync();
-        Assert.NotNull(ranges);
-    }
-
-    [Fact]
-    public async Task GetAzureIpNetworksAsync_Works()
-    {
-        var networks = await AzureIPsHelper.GetAzureIpNetworksAsync();
+        var networks = AzureCloudServiceTag.PublicCloud;
         Assert.NotNull(networks);
         Assert.True(networks.Any());
 
@@ -33,9 +26,9 @@ public class AzureIPsHelperTests
     [InlineData("207.154.225.144", false)]
     [InlineData("196.207.157.237", false)]
     [InlineData("196.207.161.233", false)]
-    public async Task IsAzureIpAsync_Works(string ip, bool expected)
+    public void IsPublicCloudIP_Works(string ip, bool expected)
     {
-        var actual = await AzureIPsHelper.IsAzureIpAsync(IPAddress.Parse(ip));
+        var actual = AzureCloudServiceTag.IsPublicCloudIP(IPAddress.Parse(ip));
         Assert.Equal(expected, actual);
     }
 
