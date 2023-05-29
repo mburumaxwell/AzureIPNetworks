@@ -1,6 +1,8 @@
 ﻿using System.Text.Json;
 using System.Text.RegularExpressions;
 
+#pragma warning disable SYSLIB1045 // Convert to 'GeneratedRegexAttribute'.
+
 var builder = Host.CreateApplicationBuilder(args);
 
 builder.Services.AddHttpClient();
