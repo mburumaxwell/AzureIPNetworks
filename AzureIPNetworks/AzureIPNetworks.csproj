@@ -5,6 +5,7 @@
     <Description>Convenient functions for working with Azure IP networks</Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Deterministic>true</Deterministic>
+    <IsTrimmable>true</IsTrimmable>
   </PropertyGroup>
 
   <ItemGroup>

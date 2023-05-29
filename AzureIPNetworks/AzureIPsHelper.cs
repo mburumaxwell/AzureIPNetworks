@@ -22,15 +22,7 @@ public static class AzureIPsHelper
                 ?? throw new InvalidOperationException($"Stream '{name}' could not be found. Raise an issue on GitHub.");
 
             // deserialize the JSON file
-            var options = new JsonSerializerOptions
-            {
-                Converters =
-                {
-                    new IPNetworkJsonConverter(),
-                    new System.Text.Json.Serialization.JsonStringEnumConverter(),
-                },
-            };
-            data[cloud] = ranges = (await JsonSerializer.DeserializeAsync<CloudServiceTags>(stream, options, cancellationToken))!;
+            data[cloud] = ranges = (await JsonSerializer.DeserializeAsync(stream, AzureIPNetworksJsonSerializerContext.Default.CloudServiceTags, cancellationToken))!;
         }
 
         return ranges;
@@ -72,7 +64,7 @@ public static class AzureIPsHelper
         // if the region is provided, only retain networks for that region
         if (region is not null) tags = tags.Where(t => t.Properties?.Region == region);
 
-        return tags.SelectMany(t => t.Properties?.AddressPrefixes);
+        return tags.SelectMany(t => t.Properties?.AddressPrefixes ?? Array.Empty<IPNetwork>());
     }
 
     /// <summary>Checks if the supplied IP address is an Azure IP.</summary>
