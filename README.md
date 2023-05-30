@@ -21,6 +21,8 @@ The library offers capabilities such as:
 
 The current version of the files can be found at [files.json](./src/AzureIPNetworks/Resources/files.json)
 
+You can also download the files from the remote URL once per application run using `AzureIPsProvider.Remote.xxxx` methods
+
 ## Installation
 
 Using the [.NET Core command-line interface (CLI) tools][dotnet-core-cli-tools]:
@@ -49,21 +51,39 @@ From within Visual Studio:
 4. Click on the *Browse* tab and search for "AzureIPNetworks".
 5. Click on the `AzureIPNetworks` package, select the appropriate version in the right-tab and click *Install*.
 
-## Example 1 - Get all IP Networks
+## Example 1 - Get all IP Networks (local)
 
 ```csharp
-var networks = await AzureIPsHelper.GetNetworksAsync(AzureCloud.Public);
+var networks = await AzureIPsProvider.Local.GetNetworksAsync(AzureCloud.Public);
 foreach (var net in networks)
 {
     Console.WriteLine($"{net} ({range.FirstUsable} to {net.LastUsable})");
 }
 ```
 
-## Example 2 - Check if an IP is used by Azure
+## Example 2 - Check if an IP is used by Azure (local)
 
 ```csharp
 var ip = "30.0.0.20";
-var used = await AzureIPsHelper.IsAzureIpAsync(IPAddress.Parse(ip));
+var used = await AzureIPsProvider.Local.IsAzureIpAsync(IPAddress.Parse(ip));
+Console.WriteLine($"{ip} is {(used ? "" : "not")} used by any Azure service");
+```
+
+## Example 3 - Get all IP Networks (remote)
+
+```csharp
+var networks = await AzureIPsProvider.Remote.GetNetworksAsync(AzureCloud.Public);
+foreach (var net in networks)
+{
+    Console.WriteLine($"{net} ({range.FirstUsable} to {net.LastUsable})");
+}
+```
+
+## Example 42 - Check if an IP is used by Azure (remote)
+
+```csharp
+var ip = "30.0.0.20";
+var used = await AzureIPsProvider.Remote.IsAzureIpAsync(IPAddress.Parse(ip));
 Console.WriteLine($"{ip} is {(used ? "" : "not")} used by any Azure service");
 ```
 
