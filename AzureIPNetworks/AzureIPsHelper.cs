@@ -6,6 +6,7 @@ namespace AzureIPNetworks;
 /// <summary>
 /// Helper methods for working with Azure IPs
 /// </summary>
+[Obsolete("Move to AzureIPs Provider instead")]
 public static class AzureIPsHelper
 {
     // caching is better that source generator since only the clouds that are used will be loaded
