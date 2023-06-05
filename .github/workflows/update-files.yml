@@ -6,7 +6,7 @@ on:
     - cron: '0 0 * * 1'
 
 jobs:
-  Build:
+  Run:
     runs-on: ubuntu-latest
     env:
       buildConfiguration: 'Release'
@@ -21,13 +21,10 @@ jobs:
       with:
         dotnet-version: '7.x'
 
-    - name: Build
+    - name: Run
       run: |
         echo "UPDATE_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-        dotnet build $GITHUB_WORKSPACE/AzureIPNetworksDownloader/AzureIPNetworksDownloader.csproj
-
-    - name: Run
-      run: dotnet run --project $GITHUB_WORKSPACE/AzureIPNetworksDownloader/AzureIPNetworksDownloader.csproj
+        dotnet run --project $GITHUB_WORKSPACE/AzureIPNetworksDownloader/AzureIPNetworksDownloader.csproj --framework net7.0
 
     - name: Create PR if necessary
       uses: peter-evans/create-pull-request@v5
