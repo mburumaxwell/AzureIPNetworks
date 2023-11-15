@@ -41,6 +41,7 @@ public abstract class AzureIPsProvider
     public async ValueTask<bool> IsAzureIpAsync(IPAddress address, AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
         => Contained(await GetNetworksAsync(cloud, service, region, cancellationToken), address);
 
+#if !NET8_0_OR_GREATER
     /// <summary>Checks if the supplied IP network is an Azure IP.</summary>
     /// <param name="cloud">The Azure Cloud to check in.</param>
     /// <param name="network">The network check against</param>
@@ -56,6 +57,7 @@ public abstract class AzureIPsProvider
     /// <returns></returns>
     public async ValueTask<bool> IsAzureIpAsync(IPNetwork network, AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
         => Contained(await GetNetworksAsync(cloud, service, region, cancellationToken), network);
+#endif
 
     /// <summary>Get the Azure IP networks.</summary>
     /// <param name="cloud">The Azure Cloud to check in.</param>
@@ -117,7 +119,9 @@ public abstract class AzureIPsProvider
     protected abstract ValueTask<Stream> GetStreamAsync(AzureCloud cloud, CancellationToken cancellationToken = default);
 
     private static bool Contained(IEnumerable<IPNetwork> networks, IPAddress ipAddress) => networks.Any(n => n.Contains(ipAddress));
+#if !NET8_0_OR_GREATER
     private static bool Contained(IEnumerable<IPNetwork> networks, IPNetwork network) => networks.Any(n => n.Contains(network));
+#endif
 }
 
 /// <summary>
@@ -141,17 +145,10 @@ internal class AzureIPsProviderLocal : AzureIPsProvider
 /// <summary>
 /// Implementation of <see cref="AzureIPsProvider"/> for downloading remote data once per run.
 /// </summary>
-internal class AzureIPsProviderRemote : AzureIPsProvider
+/// <remarks>Creates an <see cref="AzureIPsProviderRemote"/> instance.</remarks>
+/// <param name="downloader">The <see cref="AzureIPsDownloader"/> to use for downloading.</param>
+internal class AzureIPsProviderRemote(AzureIPsDownloader downloader) : AzureIPsProvider
 {
-    private readonly AzureIPsDownloader downloader;
-
-    /// <summary>Creates an <see cref="AzureIPsProviderRemote"/> instance.</summary>
-    /// <param name="downloader">The <see cref="AzureIPsDownloader"/> to use for downloading.</param>
-    public AzureIPsProviderRemote(AzureIPsDownloader downloader)
-    {
-        this.downloader = downloader ?? throw new ArgumentNullException(nameof(downloader));
-    }
-
     /// <summary>Creates an <see cref="AzureIPsProviderRemote"/> instance.</summary>
     /// <param name="client">The <see cref="HttpClient"/> instance to use when creating an <see cref="AzureIPsDownloader"/>.</param>
     public AzureIPsProviderRemote(HttpClient client) : this(new AzureIPsDownloader(client)) { }

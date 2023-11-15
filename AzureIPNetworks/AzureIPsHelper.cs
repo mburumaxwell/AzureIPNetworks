@@ -84,6 +84,7 @@ public static class AzureIPsHelper
     public static async ValueTask<bool> IsAzureIpAsync(IPAddress address, AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
         => Contained(await GetNetworksAsync(cloud, service, region, cancellationToken), address);
 
+#if !NET8_0_OR_GREATER
     /// <summary>Checks if the supplied IP network is an Azure IP.</summary>
     /// <param name="cloud">The Azure Cloud to check in.</param>
     /// <param name="network">The network check against</param>
@@ -99,7 +100,10 @@ public static class AzureIPsHelper
     /// <returns></returns>
     public static async ValueTask<bool> IsAzureIpAsync(IPNetwork network, AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
         => Contained(await GetNetworksAsync(cloud, service, region, cancellationToken), network);
+#endif
 
     static bool Contained(IEnumerable<IPNetwork> networks, IPAddress ipAddress) => networks.Any(n => n.Contains(ipAddress));
+#if !NET8_0_OR_GREATER
     static bool Contained(IEnumerable<IPNetwork> networks, IPNetwork network) => networks.Any(n => n.Contains(network));
+#endif
 }
