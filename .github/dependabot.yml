@@ -12,16 +12,20 @@ updates:
     time: "05:00"
   open-pull-requests-limit: 10
   groups:
+    microsoft:
+      patterns: ["Microsoft*"]
+    system:
+      patterns: ["System*"]
     xuint:
       patterns: ["Xunit*"]
   ignore:
-    # Ignore patch updates for some packages
-    - dependency-name: "Microsoft.*"
-      update-types: ["version-update:semver-patch"]
-    - dependency-name: "System.*"
-      update-types: ["version-update:semver-patch"]
-    - dependency-name: "IPNetwork2"
-      update-types: ["version-update:semver-patch"]
+  # Ignore patch updates for some packages
+  - dependency-name: "Microsoft.*"
+    update-types: ["version-update:semver-patch"]
+  - dependency-name: "System.*"
+    update-types: ["version-update:semver-patch"]
+  - dependency-name: "IPNetwork2"
+    update-types: ["version-update:semver-patch"]
 - package-ecosystem: "github-actions" # See documentation for possible values
   directory: "/" # Location of package manifests
   schedule:
