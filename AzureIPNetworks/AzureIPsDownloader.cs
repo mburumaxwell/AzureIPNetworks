@@ -5,7 +5,10 @@ namespace AzureIPNetworks;
 /// <summary>
 /// Utility to download the latest service tag files for Azure.
 /// </summary>
-public class AzureIPsDownloader
+/// <remarks>Creates an <see cref="AzureIPsDownloader"/> instance.</remarks>
+/// <param name="client">The <see cref="HttpClient"/> instance to use when downloading.</param>
+/// <exception cref="ArgumentNullException"><paramref name="client"/> is <see langword="null"/>.</exception>
+public class AzureIPsDownloader(HttpClient client)
 {
     private static readonly Dictionary<AzureCloud, string> fileIds = new()
     {
@@ -16,15 +19,7 @@ public class AzureIPsDownloader
     };
 
     private static readonly Regex fileUriParserRegex = new(@"(https:\/\/download.microsoft.com\/download\/.*?\/ServiceTags_[A-z]+_[0-9]+\.json)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-    private readonly HttpClient client;
-
-    /// <summary>Creates an <see cref="AzureIPsDownloader"/> instance.</summary>
-    /// <param name="client">The <see cref="HttpClient"/> instance to use when downloading.</param>
-    /// <exception cref="ArgumentNullException"><paramref name="client"/> is <see langword="null"/>.</exception>
-    public AzureIPsDownloader(HttpClient client)
-    {
-        this.client = client ?? throw new ArgumentNullException(nameof(client));
-    }
+    private readonly HttpClient client = client ?? throw new ArgumentNullException(nameof(client));
 
     /// <summary>Download the latest service tags for a given cloud.</summary>
     /// <param name="cloud">The Azure Cloud to download for.</param>
@@ -44,12 +39,20 @@ public class AzureIPsDownloader
         }
 
         var pageUrl = $"https://www.microsoft.com/en-us/download/confirmation.aspx?id={fileId}";
+#if NET5_0_OR_GREATER
+        var response = await client.GetStringAsync(pageUrl, cancellationToken);
+#else
         var response = await client.GetStringAsync(pageUrl);
+#endif
         var matches = fileUriParserRegex.Match(response);
         if (matches.Success)
         {
             var url = matches.Value;
+#if NET5_0_OR_GREATER
+            var stream = await client.GetStreamAsync(url, cancellationToken);
+#else
             var stream = await client.GetStreamAsync(url);
+#endif
             return (url, stream);
         }
 

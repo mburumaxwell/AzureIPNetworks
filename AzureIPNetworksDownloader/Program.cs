@@ -33,15 +33,7 @@ if (files.Count == clouds.Length)
     var path = $"{Path.Combine(targetDirectory, "files")}.json";
     if (File.Exists(path)) File.Delete(path);
     var fs = new FileStream(path, FileMode.OpenOrCreate);
-    var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
-    {
-        WriteIndented = true, // easier to read
-        Converters =
-        {
-            new System.Text.Json.Serialization.JsonStringEnumConverter(),
-        },
-    };
-    await JsonSerializer.SerializeAsync(fs, files, options);
+    await JsonSerializer.SerializeAsync(fs, files, DownloaderJsonSerializerContext.Default.DictionaryAzureCloudString);
     await fs.FlushAsync();
 }
 

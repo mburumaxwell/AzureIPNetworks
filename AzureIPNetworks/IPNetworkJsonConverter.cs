@@ -9,11 +9,15 @@ namespace AzureIPNetworks;
 /// </summary>
 internal class IPNetworkJsonConverter : JsonConverter<IPNetwork>
 {
-    /// <inheritdoc/>
+    ///// <inheritdoc/>
+#if NET8_0_OR_GREATER
+    public override IPNetwork Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+#else
     public override IPNetwork? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+#endif
     {
         var s = reader.GetString();
-        return string.IsNullOrWhiteSpace(s) ? null : IPNetwork.Parse(s);
+        return string.IsNullOrWhiteSpace(s) ? default : IPNetwork.Parse(s);
     }
 
     /// <inheritdoc/>

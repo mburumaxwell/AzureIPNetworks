@@ -1,6 +1,9 @@
-﻿namespace AzureIPNetworks;
+﻿using System.Text.Json.Serialization;
+
+namespace AzureIPNetworks;
 
 ///
+[JsonConverter(typeof(JsonStringEnumConverter<AzureCloud>))]
 public enum AzureCloud
 {
     ///
