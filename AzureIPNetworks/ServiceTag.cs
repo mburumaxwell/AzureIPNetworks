@@ -50,5 +50,9 @@ public class ServiceTagProperties
 
     ///
     [JsonPropertyName("addressPrefixes")]
+#if NET8_0_OR_GREATER
     public IReadOnlyCollection<IPNetwork> AddressPrefixes { get; set; } = new List<IPNetwork>();
+#else
+    public IReadOnlyCollection<IPNetwork2> AddressPrefixes { get; set; } = new List<IPNetwork2>();
+#endif
 }

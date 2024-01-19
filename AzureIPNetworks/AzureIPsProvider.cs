@@ -55,23 +55,27 @@ public abstract class AzureIPsProvider
     /// </param>
     /// <param name="cancellationToken">A token that may be used to cancel the operation.</param>
     /// <returns></returns>
-    public async ValueTask<bool> IsAzureIpAsync(IPNetwork network, AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
+    public async ValueTask<bool> IsAzureIpAsync(IPNetwork2 network, AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
         => Contained(await GetNetworksAsync(cloud, service, region, cancellationToken), network);
 #endif
 
-    /// <summary>Get the Azure IP networks.</summary>
-    /// <param name="cloud">The Azure Cloud to check in.</param>
-    /// <param name="service">
-    /// The name of the service where to check.
-    /// When not provided (<see langword="null"/>), networks from all services are checked.
-    /// </param>
-    /// <param name="region">
-    /// The name of the region where to check.
-    /// When not provided (<see langword="null"/>), networks from all regions are checked.
-    /// </param>
-    /// <param name="cancellationToken">A token that may be used to cancel the operation.</param>
-    /// <returns></returns>
+/// <summary>Get the Azure IP networks.</summary>
+/// <param name="cloud">The Azure Cloud to check in.</param>
+/// <param name="service">
+/// The name of the service where to check.
+/// When not provided (<see langword="null"/>), networks from all services are checked.
+/// </param>
+/// <param name="region">
+/// The name of the region where to check.
+/// When not provided (<see langword="null"/>), networks from all regions are checked.
+/// </param>
+/// <param name="cancellationToken">A token that may be used to cancel the operation.</param>
+/// <returns></returns>
+#if NET8_0_OR_GREATER
     public async ValueTask<IEnumerable<IPNetwork>> GetNetworksAsync(AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
+#else
+    public async ValueTask<IEnumerable<IPNetwork2>> GetNetworksAsync(AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
+#endif
     {
         IEnumerable<ServiceTag> tags = cloud switch
         {
@@ -88,7 +92,11 @@ public abstract class AzureIPsProvider
         // if the region is provided, only retain networks for that region
         if (region is not null) tags = tags.Where(t => t.Properties?.Region == region);
 
+#if NET8_0_OR_GREATER
         return tags.SelectMany(t => t.Properties?.AddressPrefixes ?? Array.Empty<IPNetwork>());
+#else
+        return tags.SelectMany(t => t.Properties?.AddressPrefixes ?? Array.Empty<IPNetwork2>());
+#endif
     }
 
     // caching is better than source generator since only the clouds that are used will be loaded
@@ -118,9 +126,14 @@ public abstract class AzureIPsProvider
     /// <param name="cancellationToken">A token that may be used to cancel the operation.</param>
     protected abstract ValueTask<Stream> GetStreamAsync(AzureCloud cloud, CancellationToken cancellationToken = default);
 
+#if NET8_0_OR_GREATER
     private static bool Contained(IEnumerable<IPNetwork> networks, IPAddress ipAddress) => networks.Any(n => n.Contains(ipAddress));
+#else
+    private static bool Contained(IEnumerable<IPNetwork2> networks, IPAddress ipAddress) => networks.Any(n => n.Contains(ipAddress));
+#endif
+
 #if !NET8_0_OR_GREATER
-    private static bool Contained(IEnumerable<IPNetwork> networks, IPNetwork network) => networks.Any(n => n.Contains(network));
+    private static bool Contained(IEnumerable<IPNetwork2> networks, IPNetwork2 network) => networks.Any(n => n.Contains(network));
 #endif
 }
 

@@ -48,7 +48,11 @@ public static class AzureIPsHelper
     /// </param>
     /// <param name="cancellationToken">A token that may be used to cancel the operation.</param>
     /// <returns></returns>
+#if NET8_0_OR_GREATER
     public static async ValueTask<IEnumerable<IPNetwork>> GetNetworksAsync(AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
+#else
+    public static async ValueTask<IEnumerable<IPNetwork2>> GetNetworksAsync(AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
+#endif
     {
         IEnumerable<ServiceTag> tags = cloud switch
         {
@@ -65,7 +69,11 @@ public static class AzureIPsHelper
         // if the region is provided, only retain networks for that region
         if (region is not null) tags = tags.Where(t => t.Properties?.Region == region);
 
+#if NET8_0_OR_GREATER
         return tags.SelectMany(t => t.Properties?.AddressPrefixes ?? Array.Empty<IPNetwork>());
+#else
+        return tags.SelectMany(t => t.Properties?.AddressPrefixes ?? Array.Empty<IPNetwork2>());
+#endif
     }
 
     /// <summary>Checks if the supplied IP address is an Azure IP.</summary>
@@ -98,12 +106,17 @@ public static class AzureIPsHelper
     /// </param>
     /// <param name="cancellationToken">A token that may be used to cancel the operation.</param>
     /// <returns></returns>
-    public static async ValueTask<bool> IsAzureIpAsync(IPNetwork network, AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
+    public static async ValueTask<bool> IsAzureIpAsync(IPNetwork2 network, AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
         => Contained(await GetNetworksAsync(cloud, service, region, cancellationToken), network);
 #endif
 
+#if NET8_0_OR_GREATER
     static bool Contained(IEnumerable<IPNetwork> networks, IPAddress ipAddress) => networks.Any(n => n.Contains(ipAddress));
+#else
+    static bool Contained(IEnumerable<IPNetwork2> networks, IPAddress ipAddress) => networks.Any(n => n.Contains(ipAddress));
+#endif
+
 #if !NET8_0_OR_GREATER
-    static bool Contained(IEnumerable<IPNetwork> networks, IPNetwork network) => networks.Any(n => n.Contains(network));
+    static bool Contained(IEnumerable<IPNetwork2> networks, IPNetwork2 network) => networks.Any(n => n.Contains(network));
 #endif
 }

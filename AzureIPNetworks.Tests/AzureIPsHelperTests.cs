@@ -17,7 +17,11 @@ public class AzureIPsHelperTests
         Assert.NotNull(networks);
         Assert.True(networks.Any());
 
+#if NET8_0_OR_GREATER
         Assert.Contains(IPNetwork.Parse(network), networks);
+#else
+        Assert.Contains(IPNetwork2.Parse(network), networks);
+#endif
     }
 
     [Theory]

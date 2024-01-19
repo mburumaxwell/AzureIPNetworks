@@ -16,7 +16,11 @@ public class AzureIPsProviderTests
         Assert.NotNull(networks);
         Assert.True(networks.Any());
 
+#if NET8_0_OR_GREATER
         Assert.Contains(IPNetwork.Parse(network), networks);
+#else
+        Assert.Contains(IPNetwork2.Parse(network), networks);
+#endif
     }
 
     [Theory]
@@ -43,7 +47,11 @@ public class AzureIPsProviderTests
         Assert.NotNull(networks);
         Assert.True(networks.Any());
 
+#if NET8_0_OR_GREATER
         Assert.Contains(IPNetwork.Parse("40.90.149.32/27"), networks);
+#else
+        Assert.Contains(IPNetwork2.Parse("40.90.149.32/27"), networks);
+#endif
 
         Assert.True(await AzureIPsProvider.Remote.IsAzureIpAsync(IPAddress.Parse("52.233.184.181"), AzureCloud.Public));
     }
