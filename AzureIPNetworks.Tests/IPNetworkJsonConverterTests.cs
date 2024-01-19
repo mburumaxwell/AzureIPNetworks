@@ -19,6 +19,10 @@ public class IPNetworkJsonConverterTests
 
     class TestModel
     {
+#if NET8_0_OR_GREATER
         public IPNetwork? Network { get; set; }
+#else
+        public IPNetwork2? Network { get; set; }
+#endif
     }
 }
