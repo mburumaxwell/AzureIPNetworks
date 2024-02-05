@@ -27,7 +27,7 @@ jobs:
         dotnet run --project $GITHUB_WORKSPACE/AzureIPNetworksDownloader/AzureIPNetworksDownloader.csproj --framework net8.0
 
     - name: Create PR if necessary
-      uses: peter-evans/create-pull-request@v5
+      uses: peter-evans/create-pull-request@v6
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         commit-message: 'Update files for service tags as of ${{env.UPDATE_DATE}}'
