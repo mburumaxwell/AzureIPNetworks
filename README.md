@@ -9,10 +9,10 @@ cloud and is also broken out by region within that cloud. You cannot create your
 
 Service tags are stored in a JSON file which contains the IP address ranges for Public Azure as a whole, each Azure region within Public, and ranges for several Azure services such as AD, EventHub, KeyVault, Storage, SQL, and AzureTrafficManager in Public. The JSON file is downloaded from Microsoft's Website every so often from:
 
-- https://www.microsoft.com/en-us/download/details.aspx?id=56519
-- https://www.microsoft.com/en-us/download/details.aspx?id=57062
-- https://www.microsoft.com/en-us/download/details.aspx?id=57063
-- https://www.microsoft.com/en-us/download/details.aspx?id=57064
+- <https://www.microsoft.com/en-us/download/details.aspx?id=56519>
+- <https://www.microsoft.com/en-us/download/details.aspx?id=57062>
+- <https://www.microsoft.com/en-us/download/details.aspx?id=57063>
+- <https://www.microsoft.com/en-us/download/details.aspx?id=57064>
 
 The library offers capabilities such as:
 
@@ -93,4 +93,4 @@ Please leave all comments, bugs, requests, and issues on the Issues page. We'll 
 
 ### License
 
-The Library is licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php "Read more about the MIT license form") license. Refere to the [LICENSE](./LICENSE) file for more information.
+The Library is licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php "Read more about the MIT license form") license. Refer to the [LICENSE](./LICENSE) file for more information.
