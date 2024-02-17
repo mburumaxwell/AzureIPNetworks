@@ -9,8 +9,8 @@ jobs:
   Run:
     runs-on: ubuntu-latest
     env:
-      buildConfiguration: 'Release'
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      UPDATE_DATE: 'overriden by run action'
 
     steps:
     - name: Checkout
@@ -24,13 +24,13 @@ jobs:
     - name: Run
       run: |
         echo "UPDATE_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-        dotnet run --project $GITHUB_WORKSPACE/AzureIPNetworksDownloader/AzureIPNetworksDownloader.csproj --framework net8.0
+        dotnet run --project ${{ github.workspace }}/AzureIPNetworksDownloader/AzureIPNetworksDownloader.csproj --framework net8.0
 
     - name: Create PR if necessary
       uses: peter-evans/create-pull-request@v6
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: 'Update files for service tags as of ${{env.UPDATE_DATE}}'
-        title: 'Update files for service tags as of ${{env.UPDATE_DATE}}'
+        commit-message: 'Update files for service tags as of ${{ env.UPDATE_DATE }}'
+        title: 'Update files for service tags as of ${{ env.UPDATE_DATE }}'
         branch: update-service-tags
         signoff: true
