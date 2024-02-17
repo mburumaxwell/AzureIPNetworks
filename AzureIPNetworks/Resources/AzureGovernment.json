@@ -1,5 +1,5 @@
 {
-  "changeNumber": 289,
+  "changeNumber": 293,
   "cloud": "AzureGovernment",
   "values": [
     {
@@ -70,7 +70,7 @@
       "name": "AzureActiveDirectory",
       "id": "AzureActiveDirectory",
       "properties": {
-        "changeNumber": 9,
+        "changeNumber": 10,
         "region": "",
         "regionId": 0,
         "platform": "Azure",
@@ -83,6 +83,8 @@
           "20.140.53.122/31",
           "20.140.144.128/29",
           "20.140.232.0/23",
+          "20.159.5.160/29",
+          "20.159.104.48/29",
           "52.126.194.0/23",
           "52.126.203.96/27",
           "52.127.2.0/27",
@@ -199,7 +201,7 @@
       "name": "ApiManagement",
       "id": "ApiManagement",
       "properties": {
-        "changeNumber": 6,
+        "changeNumber": 7,
         "region": "",
         "regionId": 0,
         "platform": "Azure",
@@ -210,17 +212,10 @@
           "20.141.13.96/28",
           "20.141.20.112/28",
           "20.141.167.144/28",
-          "52.126.202.168/31",
-          "52.126.203.80/28",
           "52.127.2.224/31",
-          "52.127.3.160/28",
-          "52.127.27.32/28",
           "52.127.34.192/31",
           "52.127.35.128/28",
           "52.127.42.160/31",
-          "52.127.43.128/28",
-          "52.127.58.192/31",
-          "52.127.59.128/28",
           "52.181.32.192/32",
           "52.182.32.132/32",
           "52.227.182.70/32",
@@ -1354,7 +1349,7 @@
       "name": "AzureMachineLearning",
       "id": "AzureMachineLearning",
       "properties": {
-        "changeNumber": 6,
+        "changeNumber": 7,
         "region": "",
         "regionId": 0,
         "platform": "Azure",
@@ -1364,6 +1359,9 @@
           "20.140.58.64/28",
           "20.140.91.64/28",
           "20.140.130.224/28",
+          "20.158.172.48/28",
+          "20.159.5.112/28",
+          "20.159.104.32/28",
           "52.126.202.176/28",
           "52.127.2.240/28",
           "52.127.10.64/28",
@@ -3494,13 +3492,14 @@
       "name": "WindowsVirtualDesktop",
       "id": "WindowsVirtualDesktop",
       "properties": {
-        "changeNumber": 3,
+        "changeNumber": 4,
         "region": "",
         "regionId": 0,
         "platform": "Azure",
         "systemService": "WindowsVirtualDesktop",
         "addressPrefixes": [
           "13.72.49.7/32",
+          "20.159.80.0/24",
           "52.227.22.220/32",
           "52.227.171.125/32",
           "52.227.173.251/32",
@@ -3617,14 +3616,12 @@
       "name": "ApiManagement.USDoDCentral",
       "id": "ApiManagement.USDoDCentral",
       "properties": {
-        "changeNumber": 5,
+        "changeNumber": 6,
         "region": "usdodcentral",
         "regionId": 44,
         "platform": "Azure",
         "systemService": "AzureApiManagement",
         "addressPrefixes": [
-          "52.127.58.192/31",
-          "52.127.59.128/28",
           "52.182.32.132/32",
           "52.245.156.96/28",
           "2001:489a:3203:402::140/124"
@@ -3641,15 +3638,13 @@
       "name": "ApiManagement.USDoDEast",
       "id": "ApiManagement.USDoDEast",
       "properties": {
-        "changeNumber": 5,
+        "changeNumber": 6,
         "region": "usdodeast",
         "regionId": 45,
         "platform": "Azure",
         "systemService": "AzureApiManagement",
         "addressPrefixes": [
           "20.141.20.112/28",
-          "52.126.202.168/31",
-          "52.126.203.80/28",
           "52.181.32.192/32",
           "2001:489a:3303:402::140/124"
         ],
@@ -3665,7 +3660,7 @@
       "name": "ApiManagement.USGovArizona",
       "id": "ApiManagement.USGovArizona",
       "properties": {
-        "changeNumber": 6,
+        "changeNumber": 7,
         "region": "usgovarizona",
         "regionId": 39,
         "platform": "Azure",
@@ -3673,7 +3668,6 @@
         "addressPrefixes": [
           "20.141.13.96/28",
           "52.127.2.224/31",
-          "52.127.3.160/28",
           "52.244.32.39/32",
           "52.244.236.112/28",
           "2001:489a:3604:2::660/124",
@@ -3691,14 +3685,13 @@
       "name": "ApiManagement.USGovIowa",
       "id": "ApiManagement.USGovIowa",
       "properties": {
-        "changeNumber": 2,
+        "changeNumber": 3,
         "region": "usgoviowa",
         "regionId": 40,
         "platform": "Azure",
         "systemService": "AzureApiManagement",
         "addressPrefixes": [
-          "13.73.72.21/32",
-          "52.127.27.32/28"
+          "13.73.72.21/32"
         ],
         "networkFeatures": [
           "API",
@@ -3737,7 +3730,7 @@
       "name": "ApiManagement.USGovVirginia",
       "id": "ApiManagement.USGovVirginia",
       "properties": {
-        "changeNumber": 5,
+        "changeNumber": 6,
         "region": "usgovvirginia",
         "regionId": 42,
         "platform": "Azure",
@@ -3746,7 +3739,6 @@
           "13.72.39.168/32",
           "20.141.167.144/28",
           "52.127.42.160/31",
-          "52.127.43.128/28",
           "52.227.182.70/32",
           "52.227.222.92/32",
           "2001:489a:3103:402::140/124"
@@ -5793,13 +5785,14 @@
       "name": "AzureMachineLearning.USGovArizona",
       "id": "AzureMachineLearning.USGovArizona",
       "properties": {
-        "changeNumber": 1,
+        "changeNumber": 2,
         "region": "usgovarizona",
         "regionId": 39,
         "platform": "Azure",
         "systemService": "AzureMachineLearning",
         "addressPrefixes": [
           "20.140.48.144/28",
+          "20.158.172.48/28",
           "52.127.2.240/28",
           "52.127.10.64/28",
           "52.127.18.64/28",
@@ -5812,13 +5805,14 @@
       "name": "AzureMachineLearning.USGovTexas",
       "id": "AzureMachineLearning.USGovTexas",
       "properties": {
-        "changeNumber": 1,
+        "changeNumber": 2,
         "region": "usgovtexas",
         "regionId": 41,
         "platform": "Azure",
         "systemService": "AzureMachineLearning",
         "addressPrefixes": [
           "20.140.58.64/28",
+          "20.159.104.32/28",
           "2001:489a:3403::300/122"
         ],
         "networkFeatures": null
@@ -5828,7 +5822,7 @@
       "name": "AzureMachineLearning.USGovVirginia",
       "id": "AzureMachineLearning.USGovVirginia",
       "properties": {
-        "changeNumber": 1,
+        "changeNumber": 2,
         "region": "usgovvirginia",
         "regionId": 42,
         "platform": "Azure",
@@ -5836,6 +5830,7 @@
         "addressPrefixes": [
           "20.140.91.64/28",
           "20.140.130.224/28",
+          "20.159.5.112/28",
           "52.127.42.176/28",
           "52.127.48.80/28",
           "2001:489a:3103::2c0/122"
@@ -8535,12 +8530,13 @@
       "name": "WindowsVirtualDesktop.USGovArizona",
       "id": "WindowsVirtualDesktop.USGovArizona",
       "properties": {
-        "changeNumber": 2,
+        "changeNumber": 3,
         "region": "usgovarizona",
         "regionId": 39,
         "platform": "Azure",
         "systemService": "WindowsVirtualDesktop",
         "addressPrefixes": [
+          "20.159.80.160/28",
           "52.244.164.16/32",
           "52.244.165.17/32",
           "52.244.202.131/32",
@@ -8586,13 +8582,14 @@
       "name": "WindowsVirtualDesktop.USGovVirginia",
       "id": "WindowsVirtualDesktop.USGovVirginia",
       "properties": {
-        "changeNumber": 2,
+        "changeNumber": 3,
         "region": "usgovvirginia",
         "regionId": 42,
         "platform": "Azure",
         "systemService": "WindowsVirtualDesktop",
         "addressPrefixes": [
           "13.72.49.7/32",
+          "20.159.80.176/28",
           "52.227.22.220/32",
           "52.227.171.125/32",
           "52.227.173.251/32",
@@ -9177,7 +9174,7 @@
       "name": "AzureCloud.usgovarizona",
       "id": "AzureCloud.usgovarizona",
       "properties": {
-        "changeNumber": 47,
+        "changeNumber": 48,
         "region": "usgovarizona",
         "regionId": 39,
         "platform": "Azure",
@@ -9205,6 +9202,7 @@
           "20.158.128.0/24",
           "20.158.130.0/30",
           "20.158.160.0/19",
+          "20.159.80.160/28",
           "40.66.0.192/26",
           "40.66.2.64/27",
           "40.66.3.64/27",
@@ -9416,7 +9414,7 @@
       "name": "AzureCloud.usgovvirginia",
       "id": "AzureCloud.usgovvirginia",
       "properties": {
-        "changeNumber": 46,
+        "changeNumber": 48,
         "region": "usgovvirginia",
         "regionId": 42,
         "platform": "Azure",
@@ -9451,6 +9449,7 @@
           "20.158.0.0/18",
           "20.158.192.0/19",
           "20.159.0.0/18",
+          "20.159.80.176/28",
           "20.159.128.0/18",
           "20.159.192.0/19",
           "23.97.0.0/20",
@@ -9496,7 +9495,7 @@
           "52.245.5.0/24",
           "52.245.192.0/18",
           "52.247.128.0/18",
-          "62.10.0.0/19",
+          "62.10.0.0/18",
           "2001:489a:2102:8::/62",
           "2001:489a:2102:1080::/58",
           "2001:489a:2102:1480::/58",
@@ -9526,7 +9525,7 @@
       "name": "AzureCloud",
       "id": "AzureCloud",
       "properties": {
-        "changeNumber": 85,
+        "changeNumber": 87,
         "region": "",
         "regionId": 0,
         "platform": "Azure",
@@ -9622,6 +9621,8 @@
           "20.158.224.0/19",
           "20.159.0.0/18",
           "20.159.64.0/20",
+          "20.159.80.160/28",
+          "20.159.80.176/28",
           "20.159.96.0/19",
           "20.159.128.0/18",
           "20.159.192.0/19",
@@ -9802,7 +9803,7 @@
           "52.246.146.0/23",
           "52.247.128.0/18",
           "52.249.96.0/19",
-          "62.10.0.0/19",
+          "62.10.0.0/18",
           "104.210.16.0/22",
           "104.210.20.0/22",
           "104.210.24.0/24",
