@@ -1,6 +1,7 @@
 # AzureIPNetworks
 
 [![NuGet](https://img.shields.io/nuget/v/AzureIPNetworks.svg)](https://www.nuget.org/packages/AzureIPNetworks/)
+[![Nuget](https://img.shields.io/nuget/dt/AzureIPNetworks)](https://www.nuget.org/packages/AzureIPNetworks/)
 
 ## Introduction
 
