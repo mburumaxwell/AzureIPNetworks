@@ -8,7 +8,7 @@
 This library eases working with known Azure IP networks in dotnet. `AzureCloudServiceTag` provides the IP ranges for the entire
 cloud and is also broken out by region within that cloud. You cannot create your own service tag nor can you specify which IP addresses are included within a tag. Microsoft manages the address prefixes encompassed by the service tag, and automatically updates the service tag and their addresses as they change.
 
-Service tags are stored in a JSON file which contains the IP address ranges for Public Azure as a whole, each Azure region within Public, and ranges for several Azure services such as AD, EventHub, KeyVault, Storage, SQL, and AzureTrafficManager in Public. The JSON file is downloaded from Microsoft's Website every so often from:
+Service tags are stored in a JSON file which contains the IP address ranges for Public Azure as a whole, each Azure region within Public, and ranges for several Azure services such as `EventHub`, `KeyVault`, Storage, SQL, and `TrafficManager` in Public. The JSON file is downloaded from Microsoft's Website every so often from:
 
 - <https://www.microsoft.com/en-us/download/details.aspx?id=56519>
 - <https://www.microsoft.com/en-us/download/details.aspx?id=57062>
@@ -95,3 +95,7 @@ Please leave all comments, bugs, requests, and issues on the Issues page. We'll 
 ### License
 
 The Library is licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php "Read more about the MIT license form") license. Refer to the [LICENSE](./LICENSE) file for more information.
+
+[dotnet-core-cli-tools]: https://docs.microsoft.com/en-us/dotnet/core/tools/
+[nuget-cli]: https://docs.microsoft.com/en-us/nuget/tools/nuget-exe-cli-reference
+[package-manager-console]: https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
