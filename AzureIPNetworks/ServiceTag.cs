@@ -14,7 +14,7 @@ public class CloudServiceTags
 
     /// <summary>ServiceTags for the cloud.</summary>
     [JsonPropertyName("values")]
-    public IReadOnlyCollection<ServiceTag> Values { get; set; } = new List<ServiceTag>();
+    public IReadOnlyCollection<ServiceTag> Values { get; set; } = [];
 }
 
 /// <summary>Representation of an Azure ServiceTag.</summary>
@@ -51,8 +51,8 @@ public class ServiceTagProperties
     ///
     [JsonPropertyName("addressPrefixes")]
 #if NET8_0_OR_GREATER
-    public IReadOnlyCollection<IPNetwork> AddressPrefixes { get; set; } = new List<IPNetwork>();
+    public IReadOnlyCollection<IPNetwork> AddressPrefixes { get; set; } = [];
 #else
-    public IReadOnlyCollection<IPNetwork2> AddressPrefixes { get; set; } = new List<IPNetwork2>();
+    public IReadOnlyCollection<IPNetwork2> AddressPrefixes { get; set; } = [];
 #endif
 }
