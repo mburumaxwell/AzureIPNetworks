@@ -154,15 +154,15 @@ public abstract class AzureIPsProvider
         var tags = await func.ConfigureAwait(false);
 
         // if the services are provided, only retain networks for those services
-        if (services?.Count > 0) tags = tags.Where(t => services.Contains(t.Properties?.SystemService, StringComparer.OrdinalIgnoreCase));
+        if (services?.Count > 0) tags = tags.Where(t => services.Contains(t.Properties.SystemService, StringComparer.OrdinalIgnoreCase));
 
         // if the regions are provided, only retain networks for those regions
-        if (regions?.Count > 0) tags = tags.Where(t => regions.Contains(t.Properties?.Region, StringComparer.OrdinalIgnoreCase));
+        if (regions?.Count > 0) tags = tags.Where(t => regions.Contains(t.Properties.Region, StringComparer.OrdinalIgnoreCase));
 
 #if NET8_0_OR_GREATER
-        return tags.SelectMany(t => t.Properties?.AddressPrefixes ?? []);
+        return tags.SelectMany(t => t.Properties.AddressPrefixes ?? []);
 #else
-        return tags.SelectMany(t => t.Properties?.AddressPrefixes ?? []);
+        return tags.SelectMany(t => t.Properties.AddressPrefixes ?? []);
 #endif
     }
 
