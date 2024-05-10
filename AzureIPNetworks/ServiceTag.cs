@@ -56,3 +56,20 @@ public class ServiceTagProperties
     public IReadOnlyCollection<IPNetwork2> AddressPrefixes { get; set; } = [];
 #endif
 }
+
+///
+[JsonConverter(typeof(JsonStringEnumConverter<AzureCloud>))]
+public enum AzureCloud
+{
+    ///
+    Public,
+
+    ///
+    China,
+
+    ///
+    AzureGovernment,
+
+    ///
+    AzureGermany,
+}

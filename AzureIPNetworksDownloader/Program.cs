@@ -1,5 +1,6 @@
 ﻿using AzureIPNetworks;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -38,3 +39,7 @@ if (files.Count == clouds.Length)
 }
 
 logger.LogInformation("Finished!");
+
+[JsonSerializable(typeof(Dictionary<AzureCloud, string>))]
+[JsonSourceGenerationOptions(WriteIndented = true)]
+internal partial class DownloaderJsonSerializerContext : JsonSerializerContext { }
