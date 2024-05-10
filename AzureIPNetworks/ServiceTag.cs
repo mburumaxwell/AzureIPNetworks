@@ -10,7 +10,7 @@ public record CloudServiceTags
 {
     /// <summary>The name of the cloud the data belongs to.</summary>
     [JsonPropertyName("cloud")]
-    public string? Cloud { get; init; }
+    public AzureCloud Cloud { get; init; }
 
     /// <summary>ServiceTags for the cloud.</summary>
     [JsonPropertyName("values")]
@@ -36,9 +36,17 @@ public record ServiceTag
 /// <summary>Properties of a <see cref="ServiceTag"/>.</summary>
 public record ServiceTagProperties
 {
+    ///
+    [JsonPropertyName("changeNumber")]
+    public int ChangeNumber { get; init; }
+
     /// <summary>The name of the Azure region.</summary>
     [JsonPropertyName("region")]
     public string? Region { get; init; }
+
+    ///
+    [JsonPropertyName("regionId")]
+    public int RegionId { get; init; }
 
     ///
     [JsonPropertyName("platform")]
@@ -55,6 +63,10 @@ public record ServiceTagProperties
 #else
     public IReadOnlyCollection<IPNetwork2> AddressPrefixes { get; init; } = [];
 #endif
+
+    ///
+    [JsonPropertyName("networkFeatures")]
+    public IReadOnlyCollection<string> NetworkFeatures { get; init; } = [];
 }
 
 ///
