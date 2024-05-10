@@ -6,54 +6,54 @@ namespace AzureIPNetworks;
 /// <summary>
 /// Azure <see cref="ServiceTag"/>s for a given <see cref="AzureCloud"/>.
 /// </summary>
-public class CloudServiceTags
+public record CloudServiceTags
 {
     /// <summary>The name of the cloud the data belongs to.</summary>
     [JsonPropertyName("cloud")]
-    public string? Cloud { get; set; }
+    public string? Cloud { get; init; }
 
     /// <summary>ServiceTags for the cloud.</summary>
     [JsonPropertyName("values")]
-    public IReadOnlyCollection<ServiceTag> Values { get; set; } = [];
+    public IReadOnlyCollection<ServiceTag> Values { get; init; } = [];
 }
 
 /// <summary>Representation of an Azure ServiceTag.</summary>
-public class ServiceTag
+public record ServiceTag
 {
     /// <summary>The identifier for the service tag.</summary>
     [JsonPropertyName("id")]
-    public string? Id { get; set; }
+    public string? Id { get; init; }
 
     /// <summary>The name of the service tag.</summary>
     [JsonPropertyName("name")]
-    public string? Name { get; set; }
+    public string? Name { get; init; }
 
     /// <summary>Properties for this service tag.</summary>
     [JsonPropertyName("properties")]
-    public ServiceTagProperties? Properties { get; set; }
+    public ServiceTagProperties? Properties { get; init; }
 }
 
 /// <summary>Properties of a <see cref="ServiceTag"/>.</summary>
-public class ServiceTagProperties
+public record ServiceTagProperties
 {
     /// <summary>The name of the Azure region.</summary>
     [JsonPropertyName("region")]
-    public string? Region { get; set; }
+    public string? Region { get; init; }
 
     ///
     [JsonPropertyName("platform")]
-    public string? Platform { get; set; }
+    public string? Platform { get; init; }
 
     ///
     [JsonPropertyName("systemService")]
-    public string? SystemService { get; set; }
+    public string? SystemService { get; init; }
 
     ///
     [JsonPropertyName("addressPrefixes")]
 #if NET8_0_OR_GREATER
-    public IReadOnlyCollection<IPNetwork> AddressPrefixes { get; set; } = [];
+    public IReadOnlyCollection<IPNetwork> AddressPrefixes { get; init; } = [];
 #else
-    public IReadOnlyCollection<IPNetwork2> AddressPrefixes { get; set; } = [];
+    public IReadOnlyCollection<IPNetwork2> AddressPrefixes { get; init; } = [];
 #endif
 }
 
