@@ -85,3 +85,8 @@ public enum AzureCloud
     ///
     AzureGermany,
 }
+
+/// <summary>
+/// Known data collected from the files and used just for reference
+/// </summary>
+public static partial class KnownData { }

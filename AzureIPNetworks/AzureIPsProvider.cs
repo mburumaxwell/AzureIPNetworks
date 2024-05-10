@@ -204,9 +204,7 @@ public abstract class AzureIPsProvider
 #endif
 }
 
-/// <summary>
-/// Implementation of <see cref="AzureIPsProvider"/> for locally cached data.
-/// </summary>
+/// <summary>Implementation of <see cref="AzureIPsProvider"/> for data in embedded files.</summary>
 internal class AzureIPsProviderLocal : AzureIPsProvider
 {
     /// <inheritdoc/>
@@ -222,10 +220,23 @@ internal class AzureIPsProviderLocal : AzureIPsProvider
     }
 }
 
-/// <summary>
-/// Implementation of <see cref="AzureIPsProvider"/> for downloading remote data once per run.
-/// </summary>
-/// <remarks>Creates an <see cref="AzureIPsProviderRemote"/> instance.</remarks>
+/// <summary>Implementation of <see cref="AzureIPsProvider"/> for data in embedded files.</summary>
+/// <param name="dir">Directory containing the files.</param>
+internal class AzureIPsProviderTemp(string dir) : AzureIPsProvider
+{
+    /// <inheritdoc/>
+    protected override ValueTask<Stream> GetStreamAsync(AzureCloud cloud, CancellationToken cancellationToken = default)
+    {
+        // read the JSON file from directory
+        var path = Path.Combine(dir, $"{cloud}.json");
+        var stream = File.OpenRead(path);
+
+        // deserialize the JSON file
+        return new ValueTask<Stream>(stream);
+    }
+}
+
+/// <summary>Implementation of <see cref="AzureIPsProvider"/> for downloading remote data once per application instance.</summary>
 /// <param name="downloader">The <see cref="AzureIPsDownloader"/> to use for downloading.</param>
 internal class AzureIPsProviderRemote(AzureIPsDownloader downloader) : AzureIPsProvider
 {
