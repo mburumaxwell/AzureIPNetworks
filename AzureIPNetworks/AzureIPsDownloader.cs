@@ -40,18 +40,18 @@ public class AzureIPsDownloader(HttpClient client)
 
         var pageUrl = $"https://www.microsoft.com/en-us/download/confirmation.aspx?id={fileId}";
 #if NET5_0_OR_GREATER
-        var response = await client.GetStringAsync(pageUrl, cancellationToken);
+        var response = await client.GetStringAsync(pageUrl, cancellationToken).ConfigureAwait(false);
 #else
-        var response = await client.GetStringAsync(pageUrl);
+        var response = await client.GetStringAsync(pageUrl).ConfigureAwait(false);
 #endif
         var matches = fileUriParserRegex.Match(response);
         if (matches.Success)
         {
             var url = matches.Value;
 #if NET5_0_OR_GREATER
-            var stream = await client.GetStreamAsync(url, cancellationToken);
+            var stream = await client.GetStreamAsync(url, cancellationToken).ConfigureAwait(false);
 #else
-            var stream = await client.GetStreamAsync(url);
+            var stream = await client.GetStreamAsync(url).ConfigureAwait(false);
 #endif
             return (url, stream);
         }

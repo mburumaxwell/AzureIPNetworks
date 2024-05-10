@@ -39,7 +39,7 @@ public abstract class AzureIPsProvider
     /// <param name="cancellationToken">A token that may be used to cancel the operation.</param>
     /// <returns></returns>
     public async ValueTask<bool> IsAzureIpAsync(IPAddress address, AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
-        => Contained(await GetNetworksAsync(cloud, service, region, cancellationToken), address);
+        => Contained(await GetNetworksAsync(cloud, service, region, cancellationToken).ConfigureAwait(false), address);
 
     /// <summary>Checks if the supplied IP address is an Azure IP.</summary>
     /// <param name="cloud">The Azure Cloud to check in.</param>
@@ -59,7 +59,7 @@ public abstract class AzureIPsProvider
                                                 IReadOnlyList<string> services,
                                                 IReadOnlyList<string> regions,
                                                 CancellationToken cancellationToken = default)
-        => Contained(await GetNetworksAsync(cloud, services, regions, cancellationToken), address);
+        => Contained(await GetNetworksAsync(cloud, services, regions, cancellationToken).ConfigureAwait(false), address);
 
 #if !NET8_0_OR_GREATER
     /// <summary>Checks if the supplied IP network is an Azure IP.</summary>
@@ -76,7 +76,7 @@ public abstract class AzureIPsProvider
     /// <param name="cancellationToken">A token that may be used to cancel the operation.</param>
     /// <returns></returns>
     public async ValueTask<bool> IsAzureIpAsync(IPNetwork2 network, AzureCloud cloud = AzureCloud.Public, string? service = null, string? region = null, CancellationToken cancellationToken = default)
-        => Contained(await GetNetworksAsync(cloud, service, region, cancellationToken), network);
+        => Contained(await GetNetworksAsync(cloud, service, region, cancellationToken).ConfigureAwait(false), network);
 
     /// <summary>Checks if the supplied IP network is an Azure IP.</summary>
     /// <param name="cloud">The Azure Cloud to check in.</param>
@@ -96,7 +96,7 @@ public abstract class AzureIPsProvider
                                                 IReadOnlyList<string> services,
                                                 IReadOnlyList<string> regions,
                                                 CancellationToken cancellationToken = default)
-        => Contained(await GetNetworksAsync(cloud, services, regions, cancellationToken), network);
+        => Contained(await GetNetworksAsync(cloud, services, regions, cancellationToken).ConfigureAwait(false), network);
 #endif
 
     /// <summary>Get the Azure IP networks.</summary>
@@ -142,14 +142,16 @@ public abstract class AzureIPsProvider
                                                                      CancellationToken cancellationToken = default)
 #endif
     {
-        IEnumerable<ServiceTag> tags = cloud switch
+        ValueTask<IEnumerable<ServiceTag>> func = cloud switch
         {
-            AzureCloud.Public => await GetServiceTagsAsync(AzureCloud.Public, cancellationToken),
-            AzureCloud.China => await GetServiceTagsAsync(AzureCloud.China, cancellationToken),
-            AzureCloud.AzureGovernment => await GetServiceTagsAsync(AzureCloud.AzureGovernment, cancellationToken),
-            AzureCloud.AzureGermany => await GetServiceTagsAsync(AzureCloud.AzureGermany, cancellationToken),
+            AzureCloud.Public => GetServiceTagsAsync(AzureCloud.Public, cancellationToken),
+            AzureCloud.China => GetServiceTagsAsync(AzureCloud.China, cancellationToken),
+            AzureCloud.AzureGovernment => GetServiceTagsAsync(AzureCloud.AzureGovernment, cancellationToken),
+            AzureCloud.AzureGermany => GetServiceTagsAsync(AzureCloud.AzureGermany, cancellationToken),
             _ => throw new NotImplementedException(),
         };
+
+        var tags = await func.ConfigureAwait(false);
 
         // if the services are provided, only retain networks for those services
         if (services?.Count > 0) tags = tags.Where(t => services.Contains(t.Properties?.SystemService, StringComparer.OrdinalIgnoreCase));
@@ -177,10 +179,10 @@ public abstract class AzureIPsProvider
         if (!data.TryGetValue(cloud, out var ranges))
         {
             // get the stream
-            var stream = await GetStreamAsync(cloud, cancellationToken);
+            var stream = await GetStreamAsync(cloud, cancellationToken).ConfigureAwait(false);
 
             // deserialize the JSON file
-            data[cloud] = ranges = (await JsonSerializer.DeserializeAsync(stream, AzureIPNetworksJsonSerializerContext.Default.CloudServiceTags, cancellationToken))!;
+            data[cloud] = ranges = (await JsonSerializer.DeserializeAsync(stream, AzureIPNetworksJsonSerializerContext.Default.CloudServiceTags, cancellationToken).ConfigureAwait(false))!;
         }
 
         return ranges.Values;
@@ -236,5 +238,5 @@ internal class AzureIPsProviderRemote(AzureIPsDownloader downloader) : AzureIPsP
 
     /// <inheritdoc/>
     protected override async ValueTask<Stream> GetStreamAsync(AzureCloud cloud, CancellationToken cancellationToken = default)
-        => (await downloader.DownloadAsync(cloud, cancellationToken)).stream;
+        => (await downloader.DownloadAsync(cloud, cancellationToken).ConfigureAwait(false)).stream;
 }
