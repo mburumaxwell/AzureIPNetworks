@@ -168,7 +168,7 @@ public abstract class AzureIPsProvider
 
     // caching is better than source generator since only the clouds that are used will be loaded
     // caching also reduces double allocations when parsing repeatedly
-    private readonly Dictionary<AzureCloud, CloudServiceTags> data = new(Enum.GetValues(typeof(AzureCloud)).Length);
+    private readonly Dictionary<AzureCloud, CloudServiceTags> data = [];
 
     /// <summary>Get the Azure IP networks.</summary>
     /// <param name="cloud">The Azure Cloud to check in.</param>
