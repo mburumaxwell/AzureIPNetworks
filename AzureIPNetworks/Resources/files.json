@@ -1,6 +1,6 @@
 {
-  "Public": "ServiceTags_Public_20240513.json",
-  "China": "ServiceTags_China_20240513.json",
-  "AzureGovernment": "ServiceTags_AzureGovernment_20240513.json",
+  "Public": "ServiceTags_Public_20240617.json",
+  "China": "ServiceTags_China_20240617.json",
+  "AzureGovernment": "ServiceTags_AzureGovernment_20240617.json",
   "AzureGermany": "ServiceTags_AzureGermany_20220307.json"
 }
