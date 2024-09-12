@@ -80,7 +80,7 @@ foreach (var net in networks)
 }
 ```
 
-## Example 42 - Check if an IP is used by Azure (remote)
+## Example 4 - Check if an IP is used by Azure (remote)
 
 ```csharp
 var ip = "30.0.0.20";
