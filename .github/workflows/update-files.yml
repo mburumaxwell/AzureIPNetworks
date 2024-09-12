@@ -34,3 +34,5 @@ jobs:
         title: 'Update files for service tags as of ${{ env.UPDATE_DATE }}'
         branch: update-service-tags
         signoff: true
+        delete-branch: true
+        sign-commits: true
