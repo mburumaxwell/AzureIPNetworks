@@ -30,9 +30,16 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
           commit-message: 'Update files for service tags as of ${{ env.UPDATE_DATE }}'
           title: 'Update files for service tags as of ${{ env.UPDATE_DATE }}'
           branch: update-service-tags
           signoff: true
+          body: |
+            Update files for service tags.
+
+            These files are pulled from the Microsoft website using the downloader project.
+
+            Date: ${{ env.UPDATE_DATE }}
           delete-branch: true
           sign-commits: true
