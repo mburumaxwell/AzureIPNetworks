@@ -103,6 +103,7 @@ public static partial class KnownData
         "",
         "ActionGroup",
         "ApplicationInsightsAvailability",
+        "AppService",
         "AutonomousDevelopmentPlatform",
         "AzureAD",
         "AzureAdvancedThreatProtection",
