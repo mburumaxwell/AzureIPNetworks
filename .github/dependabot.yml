@@ -9,7 +9,7 @@ updates:
   - package-ecosystem: 'nuget'
     directory: '/'
     schedule:
-      interval: 'weekly'
+      interval: 'monthly'
       time: '02:00'
     open-pull-requests-limit: 10
     groups:
@@ -26,11 +26,11 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/' # Location of package manifests
     schedule:
-      interval: 'weekly'
+      interval: 'monthly'
       time: '02:00'
     open-pull-requests-limit: 10
   - package-ecosystem: 'devcontainers'
     directory: '/'
     schedule:
-      interval: 'weekly'
+      interval: 'monthly'
       time: '02:00'
