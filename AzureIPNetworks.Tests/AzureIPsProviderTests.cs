@@ -12,7 +12,7 @@ public class AzureIPsProviderTests
     [InlineData(AzureCloud.AzureGermany, "51.4.32.0/19")]
     public async Task PublicCloud_Works(AzureCloud cloud, string network)
     {
-        var networks = await AzureIPsProvider.Local.GetNetworksAsync(cloud);
+        var networks = await AzureIPsProvider.Local.GetNetworksAsync(cloud, cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(networks);
         Assert.True(networks.Any());
 
@@ -36,14 +36,14 @@ public class AzureIPsProviderTests
     [InlineData("196.207.161.233", false)]
     public async Task IsAzureIP_Works(string ip, bool expected)
     {
-        var actual = await AzureIPsProvider.Local.IsAzureIpAsync(IPAddress.Parse(ip));
+        var actual = await AzureIPsProvider.Local.IsAzureIpAsync(IPAddress.Parse(ip), cancellationToken: TestContext.Current.CancellationToken);
         Assert.Equal(expected, actual);
     }
 
     [Fact]
     public async Task Remote_WorksAsExpected()
     {
-        var networks = await AzureIPsProvider.Remote.GetNetworksAsync(AzureCloud.Public);
+        var networks = await AzureIPsProvider.Remote.GetNetworksAsync(AzureCloud.Public, cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(networks);
         Assert.True(networks.Any());
 
@@ -53,6 +53,6 @@ public class AzureIPsProviderTests
         Assert.Contains(IPNetwork2.Parse("40.90.149.32/27"), networks);
 #endif
 
-        Assert.True(await AzureIPsProvider.Remote.IsAzureIpAsync(IPAddress.Parse("52.233.184.181"), AzureCloud.Public));
+        Assert.True(await AzureIPsProvider.Remote.IsAzureIpAsync(IPAddress.Parse("52.233.184.181"), AzureCloud.Public, cancellationToken: TestContext.Current.CancellationToken));
     }
 }
