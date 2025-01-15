@@ -38,7 +38,7 @@ public class AzureIPsDownloader(HttpClient client)
             throw new NotSupportedException($"'{nameof(AzureCloud)}.{cloud}' does not have a file identifier mapped.");
         }
 
-        var pageUrl = $"https://www.microsoft.com/en-us/download/confirmation.aspx?id={fileId}";
+        var pageUrl = $"https://www.microsoft.com/en-us/download/details.aspx?id={fileId}";
 #if NET5_0_OR_GREATER
         var response = await client.GetStringAsync(pageUrl, cancellationToken).ConfigureAwait(false);
 #else
