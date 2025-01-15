@@ -19,10 +19,6 @@ updates:
         patterns: ['System*']
       xunit:
         patterns: ['Xunit*']
-    ignore:
-      # Ignore patch updates for some packages
-      - dependency-name: 'IPNetwork2'
-        update-types: ['version-update:semver-patch']
   - package-ecosystem: 'github-actions'
     directory: '/' # Location of package manifests
     schedule:
