@@ -8,7 +8,7 @@ namespace AzureIPNetworks;
 /// <remarks>Creates an <see cref="AzureIPsDownloader"/> instance.</remarks>
 /// <param name="client">The <see cref="HttpClient"/> instance to use when downloading.</param>
 /// <exception cref="ArgumentNullException"><paramref name="client"/> is <see langword="null"/>.</exception>
-public class AzureIPsDownloader(HttpClient client)
+public partial class AzureIPsDownloader(HttpClient client)
 {
     private static readonly Dictionary<AzureCloud, string> fileIds = new()
     {
@@ -18,7 +18,16 @@ public class AzureIPsDownloader(HttpClient client)
         [AzureCloud.AzureGermany] = "57064",
     };
 
-    private static readonly Regex fileUriParserRegex = new(@"(https:\/\/download.microsoft.com\/download\/.*?\/ServiceTags_[A-z]+_[0-9]+\.json)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private const string FileUriParserRegexFormat = @"(https:\/\/download.microsoft.com\/download\/.*?\/ServiceTags_[A-z]+_[0-9]+\.json)";
+#if NET7_0_OR_GREATER
+
+    [GeneratedRegex(FileUriParserRegexFormat, RegexOptions.IgnoreCase | RegexOptions.Compiled)]
+    private static partial Regex GetFileUriParserRegex();
+    private static readonly Regex fileUriParserRegex = GetFileUriParserRegex();
+#else
+    private static readonly Regex fileUriParserRegex = new(FileUriParserRegexFormat, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+#endif
+
     private readonly HttpClient client = client ?? throw new ArgumentNullException(nameof(client));
 
     /// <summary>Download the latest service tags for a given cloud.</summary>
