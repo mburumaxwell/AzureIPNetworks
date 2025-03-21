@@ -7,7 +7,7 @@ public class AzureIPsProviderTests
 {
     [Theory]
     [InlineData(AzureCloud.Public, "40.90.149.32/27")]
-    [InlineData(AzureCloud.China, "40.72.0.0/18")]
+    [InlineData(AzureCloud.China, "40.72.175.176/30")]
     [InlineData(AzureCloud.AzureGovernment, "13.72.0.0/18")]
     [InlineData(AzureCloud.AzureGermany, "51.4.32.0/19")]
     public async Task PublicCloud_Works(AzureCloud cloud, string network)
