@@ -48,6 +48,7 @@ public static partial class KnownData
         "germanyn",
         "germanynortheast",
         "germanywc",
+        "indonesiacentral",
         "israelcentral",
         "italynorth",
         "japaneast",
