@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="AzureIPNetworks/AzureIPNetworks.csproj" />
+  <Project Path="AzureIPNetworks.Tests/AzureIPNetworks.Tests.csproj" />
+  <Project Path="AzureIPNetworksDownloader/AzureIPNetworksDownloader.csproj" />
+</Solution>
