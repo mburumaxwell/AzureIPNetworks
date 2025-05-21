@@ -1,11 +1,29 @@
 # To get started with Dependabot version updates, you'll need to specify which
 # package ecosystems to update and where the package manifests are located.
-# Please see the documentation for more information:
-# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
-# https://containers.dev/guide/dependabot
+# Please see the documentation for all configuration options:
+# https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
 
 version: 2
 updates:
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+      time: '02:00'
+    open-pull-requests-limit: 10
+
+  - package-ecosystem: 'devcontainers'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+      time: '02:00'
+
+  - package-ecosystem: 'dotnet-sdk'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      time: '02:00'
+
   - package-ecosystem: 'nuget'
     directory: '/'
     schedule:
@@ -19,14 +37,3 @@ updates:
         patterns: ['System*']
       xunit:
         patterns: ['Xunit*']
-  - package-ecosystem: 'github-actions'
-    directory: '/' # Location of package manifests
-    schedule:
-      interval: 'monthly'
-      time: '02:00'
-    open-pull-requests-limit: 10
-  - package-ecosystem: 'devcontainers'
-    directory: '/'
-    schedule:
-      interval: 'monthly'
-      time: '02:00'
