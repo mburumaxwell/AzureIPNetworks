@@ -17,7 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-      UPDATE_DATE: 'overriden by run action'
 
     steps:
       - name: Checkout
@@ -26,10 +25,15 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
 
+      - name: Current date
+        id: current-date
+        uses: mburumaxwell/actions/current-date@main
+
       - name: Run
-        run: |
-          echo "UPDATE_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-          dotnet run --project ${{ github.workspace }}/AzureIPNetworksDownloader/AzureIPNetworksDownloader.csproj --framework net9.0
+        run: >
+          dotnet run
+          --framework net9.0
+          --project ${{ github.workspace }}/AzureIPNetworksDownloader/AzureIPNetworksDownloader.csproj
 
       - name: Generate token
         id: generate-token
@@ -46,8 +50,8 @@ jobs:
         with:
           token: ${{ steps.generate-token.outputs.token }}
           base: main
-          commit-message: 'Update files for service tags as of ${{ env.UPDATE_DATE }}'
-          title: 'Update files for service tags as of ${{ env.UPDATE_DATE }}'
+          commit-message: 'Update files for service tags as of ${{ steps.current-date.outputs.date }}'
+          title: 'Update files for service tags as of ${{ steps.current-date.outputs.date }}'
           branch: update-service-tags
           signoff: true
           body: |
@@ -55,6 +59,6 @@ jobs:
 
             These files are pulled from the Microsoft website using the downloader project.
 
-            Date: ${{ env.UPDATE_DATE }}
+            Date: ${{ steps.current-date.outputs.date }}
           delete-branch: true
           sign-commits: true
