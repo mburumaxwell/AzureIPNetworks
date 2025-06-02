@@ -2,11 +2,15 @@ name: Update ServiceTag files
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/update-files.yml'
   schedule:
     - cron: '0 0 21 * *'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   Run:
@@ -27,10 +31,20 @@ jobs:
           echo "UPDATE_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
           dotnet run --project ${{ github.workspace }}/AzureIPNetworksDownloader/AzureIPNetworksDownloader.csproj --framework net9.0
 
-      - name: Create PR if necessary
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.GH_APP_ID_RELEASER }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY_RELEASER }}
+          permission-contents: write
+          permission-pull-requests: write
+
+      - name: Create pull request
+        if: ${{ github.event_name != 'pull_request' }}
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
           base: main
           commit-message: 'Update files for service tags as of ${{ env.UPDATE_DATE }}'
           title: 'Update files for service tags as of ${{ env.UPDATE_DATE }}'
