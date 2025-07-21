@@ -21,7 +21,7 @@ updates:
   - package-ecosystem: 'dotnet-sdk'
     directory: '/'
     schedule:
-      interval: 'weekly'
+      interval: 'monthly'
       time: '02:00'
 
   - package-ecosystem: 'nuget'
