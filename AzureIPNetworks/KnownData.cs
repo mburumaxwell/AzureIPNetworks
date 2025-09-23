@@ -77,6 +77,7 @@ public static partial class KnownData
         "southcentralus2",
         "southeastasia",
         "southeastus",
+        "southeastus3",
         "southfrance",
         "southindia",
         "spaincentral",
