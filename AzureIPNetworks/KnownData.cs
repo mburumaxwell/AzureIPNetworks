@@ -26,6 +26,7 @@ public static partial class KnownData
         "australiaeast",
         "australiasoutheast",
         "austriaeast",
+        "belgiumcentral",
         "brazilne",
         "brazilse",
         "brazilsouth",
