@@ -171,6 +171,7 @@ public static partial class KnownData
         "ChaosStudio",
         "CognitiveServicesFrontend",
         "CognitiveServicesManagement",
+        "CopilotActions",
         "DataFactory",
         "Dynamics365BusinessCentral",
         "Dynamics365ForMarketingEmail",
@@ -180,6 +181,7 @@ public static partial class KnownData
         "Grafana",
         "HDInsight",
         "LogicApps",
+        "M365LighthouseProd",
         "M365ManagementActivityApi",
         "M365ManagementActivityApiWebhook",
         "Marketplace",
@@ -201,9 +203,11 @@ public static partial class KnownData
         "SqlManagement",
         "StorageMover",
         "StorageSyncService",
+        "SystemServiceAzureSpringAppsResourceProvider",
         "TridentKusto",
         "WindowsAdminCenter",
         "WindowsVirtualDesktop",
         "WVDRelays",
+        "ZeroTrustSegmentation",
     ];
 }
