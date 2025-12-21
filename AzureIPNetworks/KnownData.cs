@@ -47,6 +47,7 @@ public static partial class KnownData
         "eastus",
         "eastus2",
         "eastus2euap",
+        "eastus3",
         "germanycentral",
         "germanyn",
         "germanynortheast",
