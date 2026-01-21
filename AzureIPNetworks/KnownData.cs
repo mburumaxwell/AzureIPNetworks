@@ -43,6 +43,7 @@ public static partial class KnownData
         "chinanorth",
         "chinanorth2",
         "chinanorth3",
+        "denmarkeast",
         "eastasia",
         "eastus",
         "eastus2",
