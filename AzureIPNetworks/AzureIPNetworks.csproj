@@ -31,7 +31,7 @@
 
   <ItemGroup Condition="!$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">
     <PackageReference Include="IPNetwork2" Version="3.5.3" />
-    <PackageReference Include="System.Text.Json" Version="10.0.5" />
+    <PackageReference Include="System.Text.Json" Version="10.0.7" />
   </ItemGroup>
 
   <ItemGroup>
